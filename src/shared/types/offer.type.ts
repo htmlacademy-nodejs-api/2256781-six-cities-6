@@ -1,4 +1,4 @@
-import { OfferGood, OfferType, TCity, TLocation, TUser } from './index.js';
+import { OfferGood, OfferType, TCity, TLocation, IUser } from './index.js';
 
 export type TOffer = {
   id?: string;
@@ -16,7 +16,7 @@ export type TOffer = {
   maxAdults: number;
   price: number;
   goods: OfferGood[];
-  host: TUser;
+  host: IUser;
   comments: number;
   location: TLocation;
 }
