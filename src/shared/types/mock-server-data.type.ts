@@ -1,0 +1,24 @@
+export type TMockServerData = {
+  dates: string[];
+  favoriteTypes: string[];
+  premiumTypes: string[];
+  ratings: string[];
+  zooms: string[];
+  prices: string[];
+  bedrooms: string[];
+  maxAdults: string[];
+  cities: string[];
+  titles: string[];
+  descriptions: string[];
+  previews: string[];
+  goods: string[];
+  types: string[];
+  coords: string[];
+  names: string[];
+  hostProTypes: string[];
+  hostTypes: string[];
+  hostAvatars: string[];
+  userAvatars: string[];
+  userEmails: string[];
+  userReviews: string[];
+};

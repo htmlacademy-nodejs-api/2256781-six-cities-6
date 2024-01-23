@@ -7,26 +7,35 @@ export class HelpCommand implements ICommand {
   }
 
   public async execute(..._parameters: string[]): Promise<void> {
-    const versionCommandParameter = chalk.blue.bold('--version');
-    const helpCommandParameter = chalk.blue.bold('--help');
-    const importCommandParameter = chalk.blue.bold('--import <path>');
-    const generateCommandParameter = chalk.blue.bold('--generate <n> <path> <url>');
+    const versionCommand = chalk.whiteBright.bold('--version');
+    const helpCommand = chalk.whiteBright.bold('--help');
+    const importCommand = chalk.whiteBright.bold('--import <path>');
+    const generateCommand = chalk.whiteBright.bold('--generate <n> <path> <url>');
 
-    console.info(chalk.blue(`
+    console.info(chalk.whiteBright(`
         Программа для подготовки данных для REST API сервера.
-        Пример:
-            cli.js --<command> [--arguments]
+        Синтаксис:
+            скрипт --<command> [--arguments]
+        Примеры запуска:
+            в продакте
+            ./main.cli.js --generate 10 ./mocks/mock-offers.tsv http://localhost:3123/api
+            ./main.cli.ts --generate 100 ./mocks/test-data.tsv http://127.0.0.1:3123/api
+            ./main.cli.js --version
+            в дэве
+            npm run ts ./src/main.cli.ts -- --import ./mocks/mock-data.tsv
+            npm run ts ./src/main.cli.ts
+            npm run ts ./src/main.cli.ts -- --version
         Команды:
-            ${versionCommandParameter}:                   # выводит номер версии приложения из файла package.json
-            ${helpCommandParameter}:                      # печатает этот текст. Команда запускается по умолчанию
-            ${importCommandParameter}:             # импортирует данные из TSV файла.
+            ${versionCommand}:                   # выводит номер версии приложения из файла package.json
+            ${helpCommand}:                      # печатает этот текст. Команда запускается по умолчанию
+            ${importCommand}:             # импортирует данные из TSV файла.
                                            параметр:
                                            <path> - путь до tsv файла
-            ${generateCommandParameter}: # генерирует произвольное количество тестовых данных //TODO: описать подробнее после реализации
+            ${generateCommand}: # генерирует произвольное количество тестовых данных
                                            параметры:
-                                           <n> -
-                                           <path> -
-                                           <url> -
+                                           <count> -обязательный. Количество объявлений для генерации
+                                           <filepath> - обязательный. Путь к файлу для записи результата
+                                           <url> - обязательный. URL сервиса (JSON-server)
     `));
   }
 }
