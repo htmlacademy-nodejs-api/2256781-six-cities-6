@@ -3,7 +3,6 @@
     "favoriteTypes": ["true", "false"],
     "premiumTypes": ["true", "false"],
     "ratings": ["2.5", "4.0", "3.2", "4.9","1.0","3.6","5.0","4.4"],
-    "zooms": ["13", "18", "16", "8"],
     "bedrooms": ["1","2","3","4", "5"],
     "cities": [
       "Paris",
@@ -32,7 +31,7 @@
       "A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.",
       "I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!"
     ],
-    "previews": [
+    "images": [
       "https://14.design.htmlacademy.pro/static/hotel/1.jpg",
       "https://14.design.htmlacademy.pro/static/hotel/2.jpg",
       "https://14.design.htmlacademy.pro/static/hotel/3.jpg",
@@ -65,21 +64,18 @@
       "Towels"
     ],
     "types": ["apartment", "house", "room", "hotel"],
-    "coords": [
-      "48.85661;2.351499",
-      "50.938361;6.959974",
-      "50.846557;4.3516974",
-      "52.370216;4.895168",
-      "53.550341;10.000654",
-      "51.225402;6.776314"
+    "locations": [
+      "48.85661;2.351499;13",
+      "50.938361;6.959974;18",
+      "50.846557;4.3516974;16",
+      "52.370216;4.895168;8",
+      "53.550341;10.000654;10",
+      "51.225402;6.776314;12"
     ],
-    "names": ["Svetlana", "Vasya", "Fedor", "Igor", "Dima", "Marina"],
-    "hostProTypes": ["true", "false"],
-    "hostTypes": ["pro", "обычный"],
-    "hostAvatars": [
-      "https://14.design.htmlacademy.pro/static/host/avatar-angelina.jpg"
-    ],
+    "userNames": ["Svetlana", "Vasya", "Fedor", "Igor", "Dima", "Marina"],
+    "userTypes": ["pro", "обычный"],
     "userAvatars": [
+      "https://14.design.htmlacademy.pro/static/host/avatar-angelina.jpg",
       "https://14.design.htmlacademy.pro/static/avatar/1.jpg",
       "https://14.design.htmlacademy.pro/static/avatar/2.jpg",
       "https://14.design.htmlacademy.pro/static/avatar/3.jpg",
@@ -100,6 +96,7 @@
       "The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.",
       "We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)",
       "Home is amazing. It's like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius"
-    ]
+    ],
+    "userPasswords": ["1$afa","23jk@","838@ad","18Zea","878,cE","001z,Q","Kq81#"]
   }
 }
