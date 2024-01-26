@@ -3,8 +3,10 @@ import { TSVFileReader } from '../../shared/libs/index.js';
 import { createOffer, getErrorMessage } from '../../shared/helpers/index.js';
 
 export class ImportCommand implements ICommand {
-  public getName(): string {
-    return '--import';
+  private readonly _name: string = '--import';
+
+  public get name(): string {
+    return this._name;
   }
 
   private onImportedLine(line: string) {

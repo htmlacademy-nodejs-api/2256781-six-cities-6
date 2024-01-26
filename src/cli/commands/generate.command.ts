@@ -7,6 +7,7 @@ import { TSVFileWriter } from '../../shared/libs/index.js';
 
 export class GenerateCommand implements ICommand {
   private initialData: TMockServerData;
+  private readonly _name: string = '--generate';
 
   private async load(url: string) {
     try {
@@ -25,8 +26,8 @@ export class GenerateCommand implements ICommand {
     }
   }
 
-  public getName(): string {
-    return '--generate';
+  public get name(): string {
+    return this._name;
   }
 
   public async execute(...parameters: string[]): Promise<void> {

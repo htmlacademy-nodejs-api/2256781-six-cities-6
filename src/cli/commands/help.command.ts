@@ -2,8 +2,10 @@ import chalk from 'chalk';
 import { ICommand } from './command.interface.js';
 
 export class HelpCommand implements ICommand {
-  public getName(): string {
-    return '--help';
+  private readonly _name: string = '--help';
+
+  public get name(): string {
+    return this._name;
   }
 
   public async execute(..._parameters: string[]): Promise<void> {
