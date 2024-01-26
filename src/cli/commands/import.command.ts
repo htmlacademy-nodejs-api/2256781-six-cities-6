@@ -1,31 +1,35 @@
-import { TSVFileReader } from '../../shared/libs/index.js';
 import { ICommand } from './command.interface.js';
+import { TSVFileReader } from '../../shared/libs/index.js';
+import { createOffer, getErrorMessage } from '../../shared/helpers/index.js';
 
 export class ImportCommand implements ICommand {
-  public getName(): string {
-    return '--import';
+  private readonly _name: string = '--import';
+
+  public get name(): string {
+    return this._name;
   }
 
-  public execute(...parameters: string[]): void {
+  private onImportedLine(line: string) {
+    const offer = createOffer(line);
+    console.info(offer);
+  }
+
+  private onCompleteImport(count: number) {
+    console.info(`${count} rows imported.`);
+  }
+
+  public async execute(...parameters: string[]): Promise<void> {
     const [filename] = parameters;
-
-    if (!filename) {
-      throw new Error('Command: ImportCommand. The file name is not specified');
-    }
-
     const fileReader = new TSVFileReader(filename.trim());
 
+    fileReader.on('line', this.onImportedLine);
+    fileReader.on('end', this.onCompleteImport);
+
     try {
-      fileReader.read();
-      console.log(fileReader.toArray());
-    } catch (err) {
-
-      if (!(err instanceof Error)) {
-        throw err;
-      }
-
+      await fileReader.read();
+    } catch (error) {
       console.error(`Can't import data from file: ${filename}`);
-      console.error(`Details: ${err.message}`);
+      console.error(getErrorMessage(error));
     }
   }
 }
