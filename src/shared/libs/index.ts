@@ -10,3 +10,4 @@ export * from './logger/logger.interface.js';
 export * from './logger/pino.logger.js';
 export * from './config/config.interface.js';
 export * from './config/rest.config.js';
+export * from './config/rest.schema.js';
