@@ -1,9 +1,10 @@
-import { DotenvParseOutput, config } from 'dotenv';
-import { IConfig } from './config.interface.js';
+import { config } from 'dotenv';
+import { IConfig } from '../index.js';
 import { ILogger } from '../index.js';
+import { configRestSchema, TRestSchema } from './rest.schema.js';
 
-export class RestConfig implements IConfig {
-  private readonly config: NodeJS.ProcessEnv;
+export class RestConfig implements IConfig<TRestSchema> {
+  private readonly config: TRestSchema;
 
   constructor(
     private readonly logger: ILogger
@@ -14,11 +15,14 @@ export class RestConfig implements IConfig {
       throw new Error('Can\'t read .env file. Perhaps the file does not exists.');
     }
 
-    this.config = <DotenvParseOutput>parsedOutput.parsed;
+    configRestSchema.load({});
+    configRestSchema.validate({ allowed: 'strict', output: this.logger.info });
+
+    this.config = configRestSchema.getProperties();
     this.logger.info('.env file found and successfully parsed!');
   }
 
-  public get(key: string): string | undefined {
+  public get<T extends keyof TRestSchema>(key: T): TRestSchema[T] {
     return this.config[key];
   }
 }
