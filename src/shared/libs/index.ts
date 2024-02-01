@@ -6,3 +6,8 @@ export * from './offer-generator/offer-generator.constants.js';
 export * from './offer-generator/tsv-offer-generator.js';
 export * from './file-writer/file-writer.interface.js';
 export * from './file-writer/tsv-file-writer.js';
+export * from './logger/logger.interface.js';
+export * from './logger/pino.logger.js';
+export * from './config/config.interface.js';
+export * from './config/rest.config.js';
+export * from './config/rest.schema.js';
