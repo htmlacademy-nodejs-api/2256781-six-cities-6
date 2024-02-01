@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 /* eslint-disable node/no-unsupported-features/es-syntax */
-import { resolve } from 'node:path';
+import 'reflect-metadata';
+import * as fs from 'node:fs';
+import path from 'node:path';
 import { ICommand } from './cli/commands/command.interface.js';
 import { CLIApplication } from './cli/index.js';
-import { glob } from 'glob';
 
 async function bootstrap() {
   const cliApplication = new CLIApplication();
   const importedCommands: ICommand[] = [];
-  const files = glob.sync('src/cli/commands/*.command.ts');
+  const files = fs.readdirSync('src/cli/commands').filter((fn) => fn.endsWith('.command.ts'));
 
   for (const file of files) {
-    const path = resolve(file);
-    const commandModule = await import(path);
+    const source = path.join(path.resolve(), '/src/cli/commands' ,file);
+    const commandModule = await import(source);
     const objectKeys = Object.keys(commandModule);
 
     objectKeys.forEach((key) => {
