@@ -1,11 +1,22 @@
+import { getModelForClass, prop } from '@typegoose/typegoose';
 import { IUser, TUserType } from '../../types/index.js';
 
 export class UserEntity implements IUser {
-  constructor(
-    public name: string,
-    public type: TUserType,
-    public avatarUrl: string,
-    public email: string,
-    public password: string,
-  ) { }
+  @prop({ required: true, default: '' })
+  public name!: string;
+
+  @prop({ required: true, default: 'обычный' })
+  public type!: TUserType;
+
+  @prop({ required: false, default: '' })
+  public avatarUrl?: string;
+
+  @prop({ unique: true, required: true })
+  public email!: string;
+
+  @prop({ required: true, default: '' })
+  public password!: string;
+
 }
+
+export const UserModel = getModelForClass(UserEntity);
