@@ -1,30 +1,28 @@
-import * as Mongoose from 'mongoose';
 import { inject, injectable } from 'inversify';
 import { setTimeout } from 'node:timers/promises';
 import { IDatabaseClient } from '../index.js';
 import { Component } from '../../types/index.js';
 import { ILogger } from '../index.js';
+import * as Mongoose from 'mongoose';
 
 const RETRY_COUNT = 5;
 const RETRY_TIMEOUT = 1000;
 
 @injectable()
 export class MongoDatabaseClient implements IDatabaseClient {
-  private isConnected: boolean;
+  private isConnected = false;
   private mongoose!: typeof Mongoose;
 
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger
-  ) {
-    this.isConnected = false;
-  }
+  ) { }
 
-  public isConnectedToDatabase() {
+  public get isConnectedToDatabase() {
     return this.isConnected;
   }
 
   public async connect(uri: string): Promise<void> {
-    if (this.isConnectedToDatabase()) {
+    if (this.isConnectedToDatabase) {
       throw new Error('MongoDB client already connected');
     }
 
@@ -47,12 +45,23 @@ export class MongoDatabaseClient implements IDatabaseClient {
   }
 
   public async disconnect(): Promise<void> {
-    if (!this.isConnectedToDatabase()) {
+    if (!this.isConnectedToDatabase) {
       throw new Error('Not connected to the database');
     }
 
-    await this.mongoose.disconnect?.();
-    this.isConnected = false;
-    this.logger.info('Database connection closed.');
+    if (!this.mongoose) {
+      throw new Error('Instance not defined');
+    }
+
+    try {
+      await this.mongoose.disconnect();
+      this.isConnected = false;
+      this.logger.info('Database connection closed.');
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error('The database connection could not be closed', error);
+      }
+      throw new Error('The database connection could not be closed');
+    }
   }
 }

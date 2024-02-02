@@ -1,10 +1,11 @@
 import { inject, injectable } from 'inversify';
-import { TRestSchema } from '../shared/libs/config/rest.schema.js';
+import { TRestSchema } from '../shared/types/index.js';
 import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/component.enum.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
 import { UserModel } from '../shared/modules/index.js';
+import { TUserType } from '../shared/types/user-type.enum.js';
 
 @injectable()
 export class RestApplication {
@@ -14,14 +15,14 @@ export class RestApplication {
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
   ) { }
 
-  private async _initDb() {
-    const mongoUri = getMongoURI(
-      this.config.get('DB_USER'),
-      this.config.get('DB_PASSWORD'),
-      this.config.get('DB_HOST'),
-      this.config.get('DB_PORT'),
-      this.config.get('DB_NAME'),
-    );
+  private async initDb() {
+    const mongoUri = getMongoURI({
+      username: this.config.get('DB_USER'),
+      password: this.config.get('DB_PASSWORD'),
+      host: this.config.get('DB_HOST'),
+      port: this.config.get('DB_PORT'),
+      base: this.config.get('DB_NAME'),
+    });
 
     return this.databaseClient.connect(mongoUri);
   }
@@ -31,14 +32,15 @@ export class RestApplication {
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
 
     this.logger.info('Init database…');
-    await this._initDb();
+    await this.initDb();
     this.logger.info('Init database completed');
 
     const user = new UserModel({
+      name: 'Unknown',
+      type: TUserType.Pro,
+      avatarUrl: '',
       email: 'test@emailru',
-      avatarPath: 'keks.jpg',
-      firstname: '2',
-      lastname: 'Unknown'
+      password: '12Waf',
     });
 
     const error = user.validateSync();

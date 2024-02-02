@@ -3,7 +3,7 @@ import { Container } from 'inversify';
 import { IConfig, ILogger, PinoLogger } from './shared/libs/index.js';
 import { RestApplication } from './rest/index.js';
 import { RestConfig } from './shared/libs/index.js';
-import { TRestSchema } from './shared/libs/index.js';
+import { TRestSchema } from './shared/types/index.js';
 import { Component } from './shared/types/index.js';
 import { IDatabaseClient, MongoDatabaseClient } from './shared/libs/index.js';
 

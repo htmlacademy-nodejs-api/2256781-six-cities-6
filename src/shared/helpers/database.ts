@@ -1,9 +1,3 @@
-export function getMongoURI(
-  username: string,
-  password: string,
-  host: string,
-  port: string,
-  databaseName: string,
-): string {
-  return `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=admin`;
-}
+export const getMongoURI = ({ username, password, host, port, base }: { [propertyName: string]: string }): string =>
+  `mongodb://${username}:${password}@${host}:${port}/${base}?authSource=admin`;
+
