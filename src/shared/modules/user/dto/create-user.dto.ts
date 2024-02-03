@@ -1,4 +1,4 @@
-export class CreateUserDTO {
+export class CreateUserDto {
   constructor(public name: string,
     public type: string,
     public avatarUrl: string,
