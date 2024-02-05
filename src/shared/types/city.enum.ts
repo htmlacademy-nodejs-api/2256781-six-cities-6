@@ -1,5 +1,3 @@
-export type TCity = 'paris' | 'cologne' | 'brussels' | 'amsterdam' | 'hamburg' | 'dusseldorf';
-
 export enum City {
   Paris = 'Paris',
   Cologne = 'Cologne',

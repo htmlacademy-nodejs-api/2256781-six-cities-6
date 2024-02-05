@@ -13,20 +13,36 @@ export interface UserEntity extends defaultClasses.Base { }
 })
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class UserEntity extends defaultClasses.TimeStamps implements IUser {
-  @prop({ required: true, default: '' })
+  @prop({
+    required: true,
+    minlength: 1,
+    maxlength: 15,
+  })
   public name!: string;
 
-  @prop({ required: true, default: 'обычный' })
+  @prop({
+    required: true,
+    default: TUserType.Standard,
+    type: () => String,
+    enum: TUserType,
+  })
   public type!: TUserType;
 
   @prop({ required: false, default: '' })
   public avatarUrl?: string;
 
-  @prop({ unique: true, required: true })
+  @prop({
+    required: true,
+    unique: true,
+    validate: /^([\w-\\.]+@([\w-]+\.)+[\w-]{2,5})?$/
+  })
   public email!: string;
 
   // ? Вопрос: как его сделать private ?
-  @prop({ required: true, default: '' })
+  @prop({
+    required: true,
+    default: '',
+  })
   public password!: string;
 
   constructor(userData: IUser) {

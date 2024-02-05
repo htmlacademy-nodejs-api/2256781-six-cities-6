@@ -10,7 +10,7 @@ import { ILogger } from '../../libs/index.js';
 export class DefaultUserService implements IUserService {
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger,
-    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>
+    @inject(Component.OfferModel) private readonly userModel: types.ModelType<UserEntity>
   ) { }
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
@@ -21,6 +21,10 @@ export class DefaultUserService implements IUserService {
     this.logger.info(`New user created: ${user.email}`);
 
     return result;
+  }
+
+  public async findById(userId: string): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel.findById(userId);
   }
 
   public async findByEmail(email: string): Promise<DocumentType<UserEntity> | null> {

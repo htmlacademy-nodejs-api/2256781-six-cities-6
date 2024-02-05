@@ -1,11 +1,12 @@
-import { IUser, OfferGood, OfferType, TCity, TLocation } from './index.js';
+import { Ref } from '@typegoose/typegoose';
+import { OfferGood, OfferType, City, TLocation } from './index.js';
+import { UserEntity } from '../modules/index.js';
 
-export type TOffer = {
-  id?: string;
+export interface IOffer {
   date: Date;
   title: string;
   description: string;
-  city: TCity;
+  city: City;
   previewImage: string;
   images: string[];
   premium: boolean;
@@ -16,9 +17,9 @@ export type TOffer = {
   maxAdults: number;
   price: number;
   goods: OfferGood[];
-  user: IUser;
+  userId: Ref<UserEntity>;
   comments: number;
   location: TLocation;
 }
 
-export type TOffers = TOffer[];
+export type TOffers = IOffer[];
