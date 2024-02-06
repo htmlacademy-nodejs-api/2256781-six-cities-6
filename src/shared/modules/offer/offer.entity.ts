@@ -1,5 +1,5 @@
 import { Ref, defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
-import { IOffer, OfferGood, OfferType, City, TLocation } from '../../types/index.js';
+import { OfferGood, OfferType, City } from '../../types/index.js';
 import { UserEntity } from '../index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -12,11 +12,10 @@ export interface OfferEntity extends defaultClasses.Base { }
   }
 })
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export class OfferEntity extends defaultClasses.TimeStamps implements IOffer {
+export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public date!: Date;
 
-  // ? type нужно везде ставить ? //
   @prop({
     trim: true,
     required: true,
@@ -46,8 +45,16 @@ export class OfferEntity extends defaultClasses.TimeStamps implements IOffer {
   })
   public previewImage!: string;
 
+  // ? Вопрос: где нужно type ставить и какой лучше?
+  // ? так () => [String] или так [String], как правильнее ?
+  //
+  // у меня ругался на поле images
+  // также на goods
+  //   Invalid Type used for options "enum" at "OfferEntity.goods"!
+  // пока не поставил сюда type: () => [String]
   @prop({
     required: true,
+    type: () => [String],
     default: [],
   })
   public images!: string[];
@@ -117,7 +124,7 @@ export class OfferEntity extends defaultClasses.TimeStamps implements IOffer {
     required: true,
     type: () => String,
   })
-  public location!: TLocation;
+  public location!: string;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

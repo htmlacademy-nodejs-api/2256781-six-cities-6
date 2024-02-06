@@ -1,6 +1,4 @@
-import { Ref } from '@typegoose/typegoose';
-import { OfferGood, OfferType, City, TLocation } from './index.js';
-import { UserEntity } from '../modules/index.js';
+import { OfferGood, OfferType, City, TLocation, IUser } from './index.js';
 
 export interface IOffer {
   date: Date;
@@ -17,7 +15,7 @@ export interface IOffer {
   maxAdults: number;
   price: number;
   goods: OfferGood[];
-  userId: Ref<UserEntity>;
+  user: IUser;
   comments: number;
   location: TLocation;
 }

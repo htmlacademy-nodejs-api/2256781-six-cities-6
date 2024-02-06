@@ -1,6 +1,4 @@
-import { Ref } from '@typegoose/typegoose';
-import { OfferGood, OfferType, City, IOffer } from '../types/index.js';
-import { UserEntity } from '../modules/index.js';
+import { OfferGood, OfferType, City, IOffer, TUserType, IUser, TLocation } from '../types/index.js';
 
 export function createOffer(dataLine: string): IOffer {
   const [
@@ -18,12 +16,27 @@ export function createOffer(dataLine: string): IOffer {
     maxAdults,
     price,
     goods,
-    userId,
+    host,
     comments,
-    location,
+    coordinates,
   ] = dataLine.replace('\n', '').split('\t');
 
-  const [latitude, longitude, zoom] = location.split(';');
+  const [name, userType, avatarUrl, email, password] = host.split(';');
+  const [latitude, longitude, zoom] = coordinates.split(';');
+
+  const user: IUser = {
+    name,
+    type: (userType as TUserType),
+    email,
+    avatarUrl,
+    password
+  };
+
+  const location: TLocation = {
+    latitude: parseFloat(latitude),
+    longitude: parseFloat(longitude),
+    zoom: parseFloat(zoom),
+  };
 
   return {
     date: new Date(date),
@@ -40,12 +53,8 @@ export function createOffer(dataLine: string): IOffer {
     maxAdults: parseInt(maxAdults, 10),
     price: parseInt(price, 10),
     goods: (goods.split(';') as OfferGood[]),
-    userId: (userId as unknown as Ref<UserEntity>),
+    user,
     comments: parseInt(comments, 10),
-    location: {
-      latitude: parseFloat(latitude),
-      longitude: parseFloat(longitude),
-      zoom: parseFloat(zoom),
-    },
+    location
   } as IOffer;
 }

@@ -4,8 +4,6 @@ import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/component.enum.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
-import { UserModel } from '../shared/modules/index.js';
-import { TUserType } from '../shared/types/user-type.enum.js';
 
 @injectable()
 export class RestApplication {
@@ -17,7 +15,7 @@ export class RestApplication {
 
   private async initDb() {
     const mongoUri = getMongoURI({
-      username: this.config.get('DB_USER'),
+      login: this.config.get('DB_USER'),
       password: this.config.get('DB_PASSWORD'),
       host: this.config.get('DB_HOST'),
       port: this.config.get('DB_PORT'),
@@ -34,15 +32,5 @@ export class RestApplication {
     this.logger.info('Init database…');
     await this.initDb();
     this.logger.info('Init database completed');
-
-    const user = await UserModel.create({
-      name: 'Unknown',
-      type: TUserType.Standard,
-      avatarUrl: 'https://test.local/unknown.jpg',
-      email: 'test@email.local',
-      password: '12Waf',
-    });
-
-    console.log(user);
   }
 }

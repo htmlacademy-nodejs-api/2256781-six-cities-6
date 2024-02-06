@@ -23,7 +23,7 @@ export class DefaultUserService implements IUserService {
     return result;
   }
 
-  public async findById(userId: string): Promise<DocumentType<UserEntity> | null> {
+  public async findByUserId(userId: string): Promise<DocumentType<UserEntity> | null> {
     return this.userModel.findById(userId);
   }
 

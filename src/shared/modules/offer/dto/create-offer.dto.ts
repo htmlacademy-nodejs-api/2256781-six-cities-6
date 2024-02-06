@@ -1,4 +1,4 @@
-import { IUser, OfferGood, OfferType, City } from '../../../types/index.js';
+import { OfferGood, OfferType, City } from '../../../types/index.js';
 
 export class CreateOfferDto {
   constructor(
@@ -16,8 +16,8 @@ export class CreateOfferDto {
     public maxAdults: number,
     public price: number,
     public goods: OfferGood[],
-    public user: IUser,
+    public userId: string,
     public comments: number,
-    public location: string[],
+    public location: string,
   ) { }
 }
