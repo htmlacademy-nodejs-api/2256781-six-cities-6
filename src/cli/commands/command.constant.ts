@@ -1,0 +1,9 @@
+export const DEFAULT_COMMAND_SETTINGS = {
+  DEFAULT_USER_PASSWORD: '123456',
+  DEFAULT_USER_SALT: 'salt',
+  DEFAULT_DB_HOST: '127.0.0.1',
+  DEFAULT_DB_USER: 'admin',
+  DEFAULT_DB_PASSWORD: 'admin',
+  DEFAULT_DB_PORT: 27017,
+  DEFAULT_DB_NAME: 'six-cities',
+} as const;

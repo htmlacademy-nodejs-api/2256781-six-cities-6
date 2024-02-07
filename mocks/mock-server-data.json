@@ -54,14 +54,13 @@
       "https://14.design.htmlacademy.pro/static/hotel/20.jpg"
     ],
     "goods": [
-      "Heating",
-      "Laptop friendly workspace",
-      "Air conditioning",
       "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
       "Baby seat",
-      "Fridge",
       "Washer",
-      "Towels"
+      "Towels",
+      "Fridge"
     ],
     "types": ["apartment", "house", "room", "hotel"],
     "locations": [

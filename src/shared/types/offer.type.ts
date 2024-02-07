@@ -1,11 +1,10 @@
-import { IUser, OfferGood, OfferType, TCity, TLocation } from './index.js';
+import { OfferGood, OfferType, City, TLocation, IUser } from './index.js';
 
-export type TOffer = {
-  id?: string;
+export interface IOffer {
   date: Date;
   title: string;
   description: string;
-  city: TCity;
+  city: City;
   previewImage: string;
   images: string[];
   premium: boolean;
@@ -21,4 +20,4 @@ export type TOffer = {
   location: TLocation;
 }
 
-export type TOffers = TOffer[];
+export type TOffers = IOffer[];

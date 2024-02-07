@@ -1,7 +1,6 @@
-import { OfferGood, OfferType, TCity, TOffer, TUserType } from '../types/index.js';
-import { IUser } from '../types/index.js';
+import { OfferGood, OfferType, City, IOffer, TUserType, IUser, TLocation } from '../types/index.js';
 
-export function createOffer(dataLine: string): TOffer {
+export function createOffer(dataLine: string): IOffer {
   const [
     date,
     title,
@@ -19,25 +18,31 @@ export function createOffer(dataLine: string): TOffer {
     goods,
     host,
     comments,
-    location,
+    coordinates,
   ] = dataLine.replace('\n', '').split('\t');
 
-  const [hostName, hostType, hostAvatar, hostEMail, hostPassword] = host.split(';');
-  const [latitude, longitude, zoom] = location.split(';');
+  const [name, userType, avatarUrl, email, password] = host.split(';');
+  const [latitude, longitude, zoom] = coordinates.split(';');
 
   const user: IUser = {
-    name: hostName,
-    type: (hostType as TUserType),
-    email: hostEMail,
-    avatarUrl: hostAvatar,
-    password: hostPassword
+    name,
+    type: (userType as TUserType),
+    email,
+    avatarUrl,
+    password
+  };
+
+  const location: TLocation = {
+    latitude: parseFloat(latitude),
+    longitude: parseFloat(longitude),
+    zoom: parseFloat(zoom),
   };
 
   return {
     date: new Date(date),
     title,
     description,
-    city: city as TCity,
+    city: city as City,
     previewImage,
     images: images.split(';'),
     premium: Boolean(premium),
@@ -50,10 +55,6 @@ export function createOffer(dataLine: string): TOffer {
     goods: (goods.split(';') as OfferGood[]),
     user,
     comments: parseInt(comments, 10),
-    location: {
-      latitude: parseFloat(latitude),
-      longitude: parseFloat(longitude),
-      zoom: parseFloat(zoom),
-    },
-  } as TOffer;
+    location
+  } as IOffer;
 }
