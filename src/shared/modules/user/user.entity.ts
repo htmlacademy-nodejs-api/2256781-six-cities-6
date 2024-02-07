@@ -38,7 +38,6 @@ export class UserEntity extends defaultClasses.TimeStamps implements IUser {
   })
   public email!: string;
 
-  // ? Вопрос: как его сделать private ?
   @prop({
     required: true,
     default: '',

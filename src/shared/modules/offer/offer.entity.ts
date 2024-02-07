@@ -45,13 +45,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public previewImage!: string;
 
-  // ? Вопрос: где нужно type ставить и какой лучше?
-  // ? так () => [String] или так [String], как правильнее ?
-  //
-  // у меня ругался на поле images
-  // также на goods
-  //   Invalid Type used for options "enum" at "OfferEntity.goods"!
-  // пока не поставил сюда type: () => [String]
   @prop({
     required: true,
     type: () => [String],
