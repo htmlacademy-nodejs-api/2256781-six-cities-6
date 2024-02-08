@@ -50,11 +50,49 @@ paths:
       summary: Авторизация пользователя
       description: Авторизует пользователя на основе логина и пароля
 
+      requestBody:
+        description: Информация для авторизации пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authUser'
+        required: true
+
+        responses:
+          "201":
+            description: Пользователь авторизован. Токен пользователя.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/userToken'
+          "401":
+            description: Неверный логин или пароль.
+
     get:
       tags:
         - users
       summary: Проверка состояния пользователя
       description: Возвращает информацию по авторизованному пользователю
+
+      requestBody:
+        description: Информация для проверки состояния пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userToken'
+        required: true
+
+        responses:
+          "200":
+            description: Информация по авторизованному пользователю.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/authUser'
+          "401":
+            description: Неверный логин или пароль.
+          "403":
+            description: Получить информацию о пользователе может только владелец аккаунта.
 
   /users/{userId}/avatar:
     post:
@@ -80,15 +118,35 @@ components:
 
         avatar:
           type: string
-          example: "https://14.design.htmlacademy.pro/static/avatar/1.jpg"
+          example: https://14.design.htmlacademy.pro/static/avatar/1.jpg
 
         type:
           type: string
-          example: "обычный, pro"
+          example: обычный
 
         password:
           type: string
           example: pa$$w0rd
+
+    authUser:
+      type: object
+
+      properties:
+        name:
+          type: string
+          example: Svetlana Ivanova
+
+        email:
+          type: string
+          example: first@test.io
+
+        avatar:
+          type: string
+          example: https://14.design.htmlacademy.pro/static/avatar/1.jpg
+
+        type:
+          type: string
+          example: pro
 
     user:
       type: object
@@ -100,3 +158,10 @@ components:
         email:
           type: string
           example: middle@test.io
+
+    userToken:
+      type: string
+      properties:
+        bearerToken:
+          type: string
+          example: 65219307def86da328c9ea9a
