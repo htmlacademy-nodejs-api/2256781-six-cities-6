@@ -1,6 +1,7 @@
-import { defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
+import { Ref, defaultClasses, modelOptions, prop } from '@typegoose/typegoose';
 import { IUser, TUserType } from '../../types/index.js';
 import { createSHA256 } from '../../helpers/hash.js';
+import { OfferEntity } from '../index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base { }
@@ -12,11 +13,9 @@ export interface UserEntity extends defaultClasses.Base { }
   }
 })
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export class UserEntity extends defaultClasses.TimeStamps implements IUser {
+export class UserEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
-    minlength: 1,
-    maxlength: 15,
   })
   public name!: string;
 
@@ -24,17 +23,18 @@ export class UserEntity extends defaultClasses.TimeStamps implements IUser {
     required: true,
     default: TUserType.Standard,
     type: () => String,
-    enum: TUserType,
   })
   public type!: TUserType;
 
-  @prop({ required: false, default: '' })
+  @prop({
+    required: false,
+    default: '',
+  })
   public avatarUrl?: string;
 
   @prop({
     required: true,
     unique: true,
-    validate: /^([\w-\\.]+@([\w-]+\.)+[\w-]{2,5})?$/
   })
   public email!: string;
 
@@ -43,6 +43,13 @@ export class UserEntity extends defaultClasses.TimeStamps implements IUser {
     default: '',
   })
   public password!: string;
+
+  @prop({
+    ref: () => OfferEntity,
+    default: [],
+    required: true,
+  })
+  public favorites!: Ref<OfferEntity>[];
 
   constructor(userData: IUser) {
     super();
@@ -62,5 +69,3 @@ export class UserEntity extends defaultClasses.TimeStamps implements IUser {
     return this.password;
   }
 }
-
-export const UserModel = getModelForClass(UserEntity);

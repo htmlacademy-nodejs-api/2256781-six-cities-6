@@ -1,4 +1,4 @@
-import { Ref, defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
+import { Ref, defaultClasses, modelOptions, prop } from '@typegoose/typegoose';
 import { OfferGood, OfferType, City } from '../../types/index.js';
 import { UserEntity } from '../index.js';
 
@@ -19,28 +19,26 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     trim: true,
     required: true,
-    minlength: 10,
-    maxlength: 100,
+    type: () => String,
   })
   public title!: string;
 
   @prop({
     trim: true,
     required: true,
-    minlength: 20,
-    maxlength: 1024,
+    type: () => String,
   })
   public description!: string;
 
   @prop({
     required: true,
     type: () => String,
-    enum: City,
   })
   public city!: City;
 
   @prop({
     required: true,
+    type: () => String,
     default: '',
   })
   public previewImage!: string;
@@ -54,6 +52,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
+    type: () => Boolean,
     default: false,
   })
   public premium!: boolean;
@@ -61,38 +60,41 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
     default: false,
+    type: () => Boolean,
   })
   public favorite!: boolean;
 
   @prop({
     required: true,
+    type: () => Number,
+    default: 1,
   })
   public rating!: number;
 
   @prop({
     required: true,
-    enum: OfferType,
+    type: () => String,
   })
   public type!: OfferType;
 
   @prop({
     required: true,
-    min: 1,
-    max: 8,
+    type: () => Number,
+    default: 1,
   })
   public bedrooms!: number;
 
   @prop({
     required: true,
-    min: 1,
-    max: 10
+    type: () => Number,
+    default: 1,
   })
   public maxAdults!: number;
 
   @prop({
     required: true,
-    min: 100,
-    max: 100000
+    type: () => Number,
+    default: 100,
   })
   public price!: number;
 
@@ -100,7 +102,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true,
     type: () => [String],
     default: [],
-    enum: OfferGood
   })
   public goods!: OfferGood[];
 
@@ -110,8 +111,11 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public userId!: Ref<UserEntity>;
 
-  @prop({ default: 0 })
-  public comments!: number;
+  @prop({
+    type: () => Number,
+    default: 0,
+  })
+  public commentCount!: number;
 
   @prop({
     required: true,
@@ -119,5 +123,3 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   })
   public location!: string;
 }
-
-export const OfferModel = getModelForClass(OfferEntity);

@@ -17,12 +17,12 @@ export function createOffer(dataLine: string): IOffer {
     price,
     goods,
     host,
-    comments,
+    commentCount,
     coordinates,
   ] = dataLine.replace('\n', '').split('\t');
 
   const [name, userType, avatarUrl, email, password] = host.split(';');
-  const [latitude, longitude, zoom] = coordinates.split(';');
+  const [latitude, longitude] = coordinates.split(';');
 
   const user: IUser = {
     name,
@@ -35,7 +35,6 @@ export function createOffer(dataLine: string): IOffer {
   const location: TLocation = {
     latitude: parseFloat(latitude),
     longitude: parseFloat(longitude),
-    zoom: parseFloat(zoom),
   };
 
   return {
@@ -54,7 +53,7 @@ export function createOffer(dataLine: string): IOffer {
     price: parseInt(price, 10),
     goods: (goods.split(';') as OfferGood[]),
     user,
-    comments: parseInt(comments, 10),
+    commentCount: parseInt(commentCount, 10),
     location
   } as IOffer;
 }
