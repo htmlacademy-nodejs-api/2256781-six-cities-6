@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: API сервер для демо-проекта «Шесть городов».
   description: |-
@@ -58,15 +58,15 @@ paths:
               $ref: '#/components/schemas/authUser'
         required: true
 
-        responses:
-          "201":
-            description: Пользователь авторизован. Токен пользователя.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/userToken'
-          "401":
-            description: Неверный логин или пароль.
+      responses:
+        "201":
+          description: Пользователь авторизован. Токен пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userToken'
+        "401":
+          description: Неверный логин или пароль.
 
     get:
       tags:
@@ -82,17 +82,17 @@ paths:
               $ref: '#/components/schemas/userToken'
         required: true
 
-        responses:
-          "200":
-            description: Информация по авторизованному пользователю.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/authUser'
-          "401":
-            description: Неверный логин или пароль.
-          "403":
-            description: Получить информацию о пользователе может только владелец аккаунта.
+      responses:
+        "200":
+          description: Информация по авторизованному пользователю.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authUser'
+        "401":
+          description: Неверный логин или пароль.
+        "403":
+          description: Получить информацию о пользователе может только владелец аккаунта.
 
   /users/{userId}/avatar:
     post:
@@ -102,55 +102,58 @@ paths:
       description: Загружает изображение аватара пользователя. Изображение
         аватара должно быть в формате `png` или `jpg`.
 
+      requestBody:
+        description: Загружает изображение аватара пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userAvatar'
+        required: true
+
+      responses:
+        "200":
+          description: Аватар успешно загружен.
+        "401":
+          description: Ошибка загрузки аватара.
+
 components:
   schemas:
     createUser:
       type: object
-
       properties:
         name:
           type: string
           example: Svetlana Ivanova
-
         email:
           type: string
           example: first@test.io
-
         avatar:
           type: string
           example: https://14.design.htmlacademy.pro/static/avatar/1.jpg
-
         type:
           type: string
           example: обычный
-
         password:
           type: string
           example: pa$$w0rd
 
     authUser:
       type: object
-
       properties:
         name:
           type: string
           example: Svetlana Ivanova
-
         email:
           type: string
           example: first@test.io
-
         avatar:
           type: string
           example: https://14.design.htmlacademy.pro/static/avatar/1.jpg
-
         type:
           type: string
           example: pro
-
     user:
       type: object
-
       properties:
         id:
           type: string
@@ -165,3 +168,13 @@ components:
         bearerToken:
           type: string
           example: 65219307def86da328c9ea9a
+
+    userAvatar:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+        avatar:
+          type: string
+          example: https://14.design.htmlacademy.pro/static/avatar/1.jpg
