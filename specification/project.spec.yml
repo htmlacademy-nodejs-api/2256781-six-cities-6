@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: API сервер для демо-проекта «Шесть городов».
   description: |-
@@ -24,6 +24,25 @@ paths:
       summary: Регистрация пользователя
       description: Регистрирует нового пользователя.
 
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+        required: true
+
+      responses:
+        "201":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userToken'
+
+        "409":
+          description: Пользователь с таким email уже существует.
+
   /users/login:
     post:
       tags:
@@ -36,7 +55,7 @@ paths:
         - users
       summary: Проверка состояния пользователя
       description: Возвращает информацию по авторизованному пользователю
-      
+
   /users/{userId}/avatar:
     post:
       tags:
@@ -44,3 +63,40 @@ paths:
       summary: Загрузить изображение аватара
       description: Загружает изображение аватара пользователя. Изображение
         аватара должно быть в формате `png` или `jpg`.
+
+components:
+  schemas:
+    createUser:
+      type: object
+
+      properties:
+        name:
+          type: string
+          example: Svetlana Ivanova
+
+        email:
+          type: string
+          example: first@test.io
+
+        avatar:
+          type: string
+          example: "https://14.design.htmlacademy.pro/static/avatar/1.jpg"
+
+        type:
+          type: string
+          example: "обычный, pro"
+
+        password:
+          type: string
+          example: pa$$w0rd
+
+    user:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+        email:
+          type: string
+          example: middle@test.io
