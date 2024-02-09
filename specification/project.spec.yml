@@ -38,7 +38,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/userToken'
+                $ref: '#/components/schemas/authUser'
 
         "409":
           description: Пользователь с таким email уже существует.
@@ -94,7 +94,7 @@ paths:
         "403":
           description: Получить информацию о пользователе может только владелец аккаунта.
 
-  /users/{userId}/avatar:
+  /users/avatar/{userId}:
     post:
       tags:
         - users
@@ -115,6 +115,182 @@ paths:
           description: Аватар успешно загружен.
         "401":
           description: Ошибка загрузки аватара.
+
+  /offers:
+    get:
+      tags:
+        - offers
+      summary: Получение предложения по аренде
+      description: Получает список предложений по аренде.
+      responses:
+        "200":
+          description: Список предложений.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/unknown'
+    post:
+      tags:
+        - offers
+      summary: Создание предложения по аренде
+      description: Создаёт предложение по аренде
+
+      requestBody:
+        description: Информация для создания предложения по аренде.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/unknown'
+        required: true
+
+      responses:
+       "200":
+          description: Предложение по аренде успешно создано.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unknown'
+       "403":
+          description: Создавать предложения по аренде могут только авторизованные пользователи.
+
+  /offers/{offerId}:
+    get:
+      tags:
+        - offers
+      summary: Получение предложения по аренде
+      description: Получает предложение по аренде.
+
+      responses:
+        "200":
+          description: Предложение по аренде успешно получено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unknown'
+
+    patch:
+      tags:
+        - offers
+      summary: Обновление предложения по аренде
+      description: Обновляет предложение по аренде.
+
+      requestBody:
+        description: Информация для обновления предложения.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/unknown'
+        required: true
+
+      responses:
+        "200":
+          description: Предложение по аренде успешно обновлено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unknown'
+
+        "403":
+          description: Нет прав для редактирования.
+
+    delete:
+      tags:
+        - offers
+      summary: Удаление предложения по аренде
+      description: Удаляет предложение по аренде.
+
+      responses:
+        "204":
+          description: Предложение по аренде успешно удалено.
+        "403":
+          description: Нет прав для удаления этого предложения.
+
+  /offers/premium:
+    get:
+      tags:
+        - offers
+      summary: Получение премиальных предложений по аренде
+      description: Получает список премиальных предложений. Сервис возвращает не больше 3 предложений с флагом «Premium»
+
+      responses:
+        "200":
+          description: Список предложений с флагом «Premium».
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/unknown'
+
+  /offers/favorite:
+    get:
+      tags:
+        - offers
+      summary: Получение избранных предложений по аренде
+      description: Получает список избранных предложений.
+
+      responses:
+        "200":
+          description: Список избранных предложений.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/unknown'
+        "403":
+          description: Ресурс доступен только авторизованным клиентам.
+
+  /offers/favorite/{offerId}:
+    post:
+      tags:
+        - offers
+      summary: Добавление предложения в Избранное
+      description: Изменяет статус Избранное предложения.
+
+      requestBody:
+        description: Информация для редактирования предложения по аренде.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                offerId:
+                  type: string
+                  example: 6329c3d6a04ab1061c6425ea
+        required: true
+
+      responses:
+        "204":
+          description: Статус предложения Избранное успешно изменён.
+        "403":
+          description: Изменять статус может только авторизованный пользователь.
+
+    delete:
+      tags:
+        - offers
+      summary: Удаление предложения из Избранного
+      description: Изменяет статус Избранное предложения.
+
+      requestBody:
+        description: Информация для редактирования предложения по аренде.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                offerId:
+                  type: string
+                  example: 6329c3d6a04ab1061c6425ea
+        required: true
+
+      responses:
+        "204":
+          description: Предложение по аренде успешно удалено из Избранного.
+        "403":
+          description: Изменять статус может только авторизованный пользователь.
 
 components:
   schemas:
@@ -152,22 +328,16 @@ components:
         type:
           type: string
           example: pro
-    user:
+
+    userToken:
       type: object
       properties:
-        id:
+        token:
           type: string
           example: 6329c3d6a04ab1061c6425ea
         email:
           type: string
           example: middle@test.io
-
-    userToken:
-      type: string
-      properties:
-        bearerToken:
-          type: string
-          example: 65219307def86da328c9ea9a
 
     userAvatar:
       type: object
@@ -178,3 +348,10 @@ components:
         avatar:
           type: string
           example: https://14.design.htmlacademy.pro/static/avatar/1.jpg
+
+    unknown:
+      type: object
+      properties:
+        par:
+          type: string
+          example: test
