@@ -25,8 +25,7 @@ export class DefaultUserService implements IUserService {
   }
 
   public async findUnique(data: TUniqueQuery): Promise<DocumentType<UserEntity> | null> {
-    const record = this.userModel.findOne(data);
-    return record;
+    return this.userModel.findOne(data);
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
