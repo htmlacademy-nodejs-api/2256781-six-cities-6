@@ -6,6 +6,7 @@ import { IConfig, RestConfig } from '../shared/libs/index.js';
 import { TRestSchema } from '../shared/types/index.js';
 import { IDatabaseClient, MongoDatabaseClient } from '../shared/libs/index.js';
 import { createOfferContainer, createUserContainer } from '../shared/modules/index.js';
+import { createCommentContainer } from '../shared/modules/comment/comment-container.js';
 
 function createRestApplicationContainer() {
   const restApplicationContainer = new Container();
@@ -22,4 +23,5 @@ export const getRestApplicationContainer = () => Container.merge(
   createRestApplicationContainer(),
   createUserContainer(),
   createOfferContainer(),
+  createCommentContainer(),
 );

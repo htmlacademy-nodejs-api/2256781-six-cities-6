@@ -1,7 +1,7 @@
 import { IUserService } from '../index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { UserEntity } from '../index.js';
-import { CreateUserDto } from './dto/create-user.dto.js';
+import { CreateUserDto } from '../index.js';
 import { inject, injectable } from 'inversify';
 import { Component } from '../../types/component.enum.js';
 import { ILogger } from '../../libs/index.js';
@@ -25,7 +25,7 @@ export class DefaultUserService implements IUserService {
   }
 
   public async findUnique(data: TUniqueQuery): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne(data);
+    return this.userModel.findOne(data).exec();
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
