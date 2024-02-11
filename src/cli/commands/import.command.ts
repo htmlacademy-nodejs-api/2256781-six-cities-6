@@ -7,7 +7,6 @@ import { IDatabaseClient, MongoDatabaseClient } from '../../shared/libs/index.js
 import { ILogger } from '../../shared/libs/index.js';
 import { ConsoleLogger } from '../../shared/libs/index.js';
 import { DefaultUserService, UserModel } from '../../shared/modules/index.js';
-import { DEFAULT_COMMAND_SETTINGS } from '../index.js';
 import { IOffer } from '../../shared/types/index.js';
 
 export class ImportCommand implements ICommand {
@@ -44,11 +43,8 @@ export class ImportCommand implements ICommand {
   }
 
   private async saveOffer(offer: IOffer) {
-    const { DEFAULT_USER_PASSWORD } = DEFAULT_COMMAND_SETTINGS;
-
     const user = await this.userService.findOrCreate({
-      ...offer.user,
-      password: DEFAULT_USER_PASSWORD
+      ...offer.user
     }, this.salt as string);
 
 
@@ -59,33 +55,23 @@ export class ImportCommand implements ICommand {
     });
   }
 
-  public async execute(filename: string, login: string, password: string, host: string, port: string, base: string, salt: string): Promise<void> {
-    const { DEFAULT_DB_USER } = DEFAULT_COMMAND_SETTINGS;
-    const dbLogin = login ?? DEFAULT_DB_USER;
-
-    const { DEFAULT_DB_PASSWORD } = DEFAULT_COMMAND_SETTINGS;
-    const dbPassword = password ?? DEFAULT_DB_PASSWORD;
-
-    const { DEFAULT_DB_HOST } = DEFAULT_COMMAND_SETTINGS;
-    const dbHost = host ?? DEFAULT_DB_HOST;
-
-
-    const { DEFAULT_DB_PORT } = DEFAULT_COMMAND_SETTINGS;
-    const dbPort = port ?? DEFAULT_DB_PORT;
-
-    const { DEFAULT_DB_NAME } = DEFAULT_COMMAND_SETTINGS;
-    const dbName = base ?? DEFAULT_DB_NAME;
-
-    const { DEFAULT_USER_SALT } = DEFAULT_COMMAND_SETTINGS;
-    this.salt = salt ?? DEFAULT_USER_SALT;
-
+  public async execute(
+    filename: string,
+    login: string = process.env.DB_USER as string,
+    password: string = process.env.DB_PASSWORD as string,
+    host: string = process.env.DB_HOST as string,
+    port: string = process.env.DB_PORT as string,
+    base: string = process.env.DB_NAME as string,
+    salt: string = process.env.SALT as string
+  ): Promise<void> {
     const uri = getMongoURI({
-      login: dbLogin,
-      password: dbPassword,
-      host: dbHost,
-      port: dbPort,
-      base: dbName,
+      login,
+      password,
+      host,
+      port,
+      base
     });
+    this.salt = salt;
 
     await this.databaseClient.connect(uri);
 

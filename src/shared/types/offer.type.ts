@@ -16,7 +16,7 @@ export interface IOffer {
   price: number;
   goods: OfferGood[];
   user: IUser;
-  comments: number;
+  commentCount: number;
   location: TLocation;
 }
 

@@ -3,16 +3,19 @@
 import 'reflect-metadata';
 import * as fs from 'node:fs';
 import path from 'node:path';
+import { config } from 'dotenv';
 import { ICommand } from './cli/commands/command.interface.js';
 import { CLIApplication } from './cli/index.js';
 
 async function bootstrap() {
+  config();
+
   const cliApplication = new CLIApplication();
   const importedCommands: ICommand[] = [];
   const files = fs.readdirSync('src/cli/commands').filter((fn) => fn.endsWith('.command.ts'));
 
   for (const file of files) {
-    const source = path.join(path.resolve(), '/src/cli/commands' ,file);
+    const source = path.join(path.resolve(), '/src/cli/commands', file);
     const commandModule = await import(source);
     const objectKeys = Object.keys(commandModule);
 

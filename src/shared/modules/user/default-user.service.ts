@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto.js';
 import { inject, injectable } from 'inversify';
 import { Component } from '../../types/component.enum.js';
 import { ILogger } from '../../libs/index.js';
+import { TUniqueQuery } from '../../types/user.unique-query.type.js';
 
 @injectable()
 export class DefaultUserService implements IUserService {
@@ -23,16 +24,12 @@ export class DefaultUserService implements IUserService {
     return result;
   }
 
-  public async findByUserId(userId: string): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findById(userId);
-  }
-
-  public async findByEmail(email: string): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne({ email });
+  public async findUnique(data: TUniqueQuery): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel.findOne(data);
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
-    const existedUser = await this.findByEmail(dto.email);
+    const existedUser = await this.findUnique({ email: dto.email });
 
     if (existedUser) {
       return existedUser;

@@ -14,3 +14,4 @@ export * from './config/rest.config.js';
 export * from './config/rest.schema.js';
 export * from './database-client/database-client.interface.js';
 export * from './database-client/mongo.database-client.js';
+export * from './database-client/database.constant.js';
