@@ -21,14 +21,12 @@ export class UserEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    default: TUserType.Standard,
     type: () => String,
   })
   public type!: TUserType;
 
   @prop({
     required: false,
-    default: '',
   })
   public avatarUrl?: string;
 
@@ -40,13 +38,11 @@ export class UserEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    default: '',
   })
   public password!: string;
 
   @prop({
     ref: () => OfferEntity,
-    default: [],
     required: true,
   })
   public favorites!: Ref<OfferEntity>[];

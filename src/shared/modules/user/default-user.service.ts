@@ -11,7 +11,7 @@ import { TUniqueQuery } from '../../types/user.unique-query.type.js';
 export class DefaultUserService implements IUserService {
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger,
-    @inject(Component.OfferModel) private readonly userModel: types.ModelType<UserEntity>
+    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>
   ) { }
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
@@ -25,7 +25,7 @@ export class DefaultUserService implements IUserService {
   }
 
   public async findUnique(data: TUniqueQuery): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne(data).exec();
+    return await this.userModel.findOne(data).exec();
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
@@ -36,5 +36,17 @@ export class DefaultUserService implements IUserService {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async login(email: string, password: string): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel.findOne({ email, password });
+  }
+
+  public async logout(token: string) {
+    return `Что-нить должно происходить с базой при logout? ${token}`;
+  }
+
+  public async check(token: string) {
+    return `Что-нить должно происходить с базой при check? ${token}`;
   }
 }

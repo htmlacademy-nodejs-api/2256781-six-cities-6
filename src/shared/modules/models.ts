@@ -1,4 +1,4 @@
-import { OfferEntity, UserEntity, CommentEntity } from './index.js';
+import { CommentEntity, OfferEntity, UserEntity } from './index.js';
 import { getModelForClass } from '@typegoose/typegoose';
 
 export const UserModel = getModelForClass(UserEntity);

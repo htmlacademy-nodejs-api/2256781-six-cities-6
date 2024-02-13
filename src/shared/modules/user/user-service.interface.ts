@@ -7,4 +7,7 @@ export interface IUserService {
   create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>>;
   findUnique(data: TUniqueQuery): Promise<DocumentType<UserEntity> | null>;
   findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>>;
+  login(email: string, password: string): Promise<DocumentType<UserEntity> | null>
+  logout(token: string): void;
+  check(token: string): void;
 }

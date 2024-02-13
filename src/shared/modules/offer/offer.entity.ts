@@ -39,27 +39,24 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
     type: () => String,
-    default: '',
+    default: 'https://14.design.htmlacademy.pro/static/avatar/6.jpg',
   })
   public previewImage!: string;
 
   @prop({
     required: true,
     type: () => [String],
-    default: [],
   })
   public images!: string[];
 
   @prop({
     required: true,
     type: () => Boolean,
-    default: false,
   })
   public premium!: boolean;
 
   @prop({
     required: true,
-    default: false,
     type: () => Boolean,
   })
   public favorite!: boolean;
@@ -67,7 +64,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
     type: () => Number,
-    default: 1,
   })
   public rating!: number;
 
@@ -80,28 +76,24 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
     required: true,
     type: () => Number,
-    default: 1,
   })
   public bedrooms!: number;
 
   @prop({
     required: true,
     type: () => Number,
-    default: 1,
   })
   public maxAdults!: number;
 
   @prop({
     required: true,
     type: () => Number,
-    default: 100,
   })
   public price!: number;
 
   @prop({
     required: true,
     type: () => [String],
-    default: [],
   })
   public goods!: OfferGood[];
 
