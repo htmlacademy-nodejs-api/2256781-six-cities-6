@@ -1,7 +1,7 @@
 import { DocumentType, types } from '@typegoose/typegoose';
 import { inject, injectable } from 'inversify';
 import { Component } from '../../types/component.enum.js';
-import { DEFAULT_OFFER_VALUE, IOfferService, OfferEntity, UpdateOfferDto, getOfferAggregation } from '../index.js';
+import { DEFAULT_OFFER_VALUE, IOfferService, OfferEntity, CreateOfferDto, getOfferAggregation, UpdateOfferDto } from '../index.js';
 import { ILogger } from '../../libs/index.js';
 import { SortType } from '../../types/sort-type.enum.js';
 
@@ -12,7 +12,7 @@ export class DefaultOfferService implements IOfferService {
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
   ) { }
 
-  public async create(dto: UpdateOfferDto): Promise<DocumentType<OfferEntity>> {
+  public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.title}`);
 

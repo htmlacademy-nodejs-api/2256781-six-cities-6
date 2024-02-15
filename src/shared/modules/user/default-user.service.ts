@@ -1,4 +1,4 @@
-import { IUserService } from '../index.js';
+import { IUserService, UpdateUserDto } from '../index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { UserEntity } from '../index.js';
 import { CreateUserDto } from '../index.js';
@@ -38,15 +38,13 @@ export class DefaultUserService implements IUserService {
     return this.create(dto, salt);
   }
 
-  public async login(email: string, password: string): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne({ email, password });
-  }
-
-  public async logout(token: string) {
-    return `Что-нить должно происходить с базой при logout? ${token}`;
-  }
-
-  public async check(token: string) {
-    return `Что-нить должно происходить с базой при check? ${token}`;
+  public async updateById(
+    userId: string,
+    dto: UpdateUserDto,
+  ): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel
+      .findByIdAndUpdate(userId, dto, { new: true })
+      .populate(['favorites'])
+      .exec();
   }
 }

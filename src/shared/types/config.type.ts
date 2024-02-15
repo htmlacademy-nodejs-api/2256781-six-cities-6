@@ -1,4 +1,4 @@
-export type TRestSchema = {
+export type TConfigSchema = {
   PORT: number;
   SALT: string;
   DB_HOST: string;

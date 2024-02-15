@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { TRestSchema } from '../shared/types/index.js';
+import { TConfigSchema } from '../shared/types/index.js';
 import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/component.enum.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
@@ -10,7 +10,7 @@ import { IOfferService } from '../shared/modules/index.js';
 export class RestApplication {
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger,
-    @inject(Component.Config) private readonly config: IConfig<TRestSchema>,
+    @inject(Component.Config) private readonly config: IConfig<TConfigSchema>,
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
     @inject(Component.OfferService) private readonly offerService: IOfferService,
 

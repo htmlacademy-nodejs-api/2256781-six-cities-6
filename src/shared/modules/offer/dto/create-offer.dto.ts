@@ -1,4 +1,4 @@
-import { OfferGood, OfferType, City } from '../../../types/index.js';
+import { OfferGood, OfferType, City, TLocation } from '../../../types/index.js';
 
 export class CreateOfferDto {
   public date!: Date;
@@ -33,5 +33,5 @@ export class CreateOfferDto {
 
   public commentCount!: number;
 
-  public location!: string;
+  public location!: TLocation;
 }

@@ -4,11 +4,11 @@ import { IConfig } from '../index.js';
 import { ILogger } from '../index.js';
 import { configRestSchema } from './rest.schema.js';
 import { Component } from '../../types/component.enum.js';
-import { TRestSchema } from '../../types/index.js';
+import { TConfigSchema } from '../../types/index.js';
 
 @injectable()
-export class RestConfig implements IConfig<TRestSchema> {
-  private readonly config: TRestSchema;
+export class EnvConfig implements IConfig<TConfigSchema> {
+  private readonly config: TConfigSchema;
 
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger
@@ -26,7 +26,7 @@ export class RestConfig implements IConfig<TRestSchema> {
     this.logger.info('.env file found and successfully parsed!');
   }
 
-  public get<T extends keyof TRestSchema>(key: T): TRestSchema[T] {
+  public get<T extends keyof TConfigSchema>(key: T): TConfigSchema[T] {
     return this.config[key];
   }
 }

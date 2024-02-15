@@ -1,6 +1,6 @@
 import { OfferGood, OfferType, City, IOffer, TUserType, IUser, TLocation } from '../types/index.js';
 
-export function createOffer(dataLine: string): IOffer {
+export function convertLineOfferToObject(dataLine: string) {
   const [
     date,
     title,
@@ -19,10 +19,36 @@ export function createOffer(dataLine: string): IOffer {
     host,
     commentCount,
     coordinates,
+    comments
   ] = dataLine.replace('\n', '').split('\t');
 
-  const [name, userType, avatarUrl, email, password] = host.split(';');
-  const [latitude, longitude] = coordinates.split(';');
+  return {
+    date,
+    title,
+    description,
+    city,
+    previewImage,
+    images,
+    premium,
+    favorite,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    commentCount,
+    coordinates,
+    comments
+  };
+}
+
+export function createOffer(dataLine: string): IOffer {
+  const offer = convertLineOfferToObject(dataLine);
+
+  const [name, userType, avatarUrl, email, password] = offer.host.split(';');
+  const [latitude, longitude] = offer.coordinates.split(';');
 
   const user: IUser = {
     name,
@@ -38,22 +64,22 @@ export function createOffer(dataLine: string): IOffer {
   };
 
   return {
-    date: new Date(date),
-    title,
-    description,
-    city: city as City,
-    previewImage,
-    images: images.split(';'),
-    premium: Boolean(premium),
-    favorite: Boolean(favorite),
-    rating: parseFloat(rating),
-    type: (type as OfferType),
-    bedrooms: parseInt(bedrooms, 10),
-    maxAdults: parseInt(maxAdults, 10),
-    price: parseInt(price, 10),
-    goods: (goods.split(';') as OfferGood[]),
+    date: new Date(offer.date),
+    title: offer.title,
+    description: offer.description,
+    city: offer.city as City,
+    previewImage: offer.previewImage,
+    images: offer.images.split(';'),
+    premium: Boolean(offer.premium),
+    favorite: Boolean(offer.favorite),
+    rating: parseFloat(offer.rating),
+    type: (offer.type as OfferType),
+    bedrooms: parseInt(offer.bedrooms, 10),
+    maxAdults: parseInt(offer.maxAdults, 10),
+    price: parseInt(offer.price, 10),
+    goods: (offer.goods.split(';') as OfferGood[]),
     user,
-    commentCount: parseInt(commentCount, 10),
+    commentCount: parseInt(offer.commentCount, 10),
     location
   } as IOffer;
 }
