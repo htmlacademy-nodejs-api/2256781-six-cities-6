@@ -5,6 +5,7 @@ import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/component.enum.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
+import { IExceptionFilter } from '../rest/index.js';
 
 @injectable()
 export class RestApplication {
@@ -14,8 +15,13 @@ export class RestApplication {
     @inject(Component.Logger) private readonly logger: ILogger,
     @inject(Component.Config) private readonly config: IConfig<TConfigSchema>,
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
+    @inject(Component.ExceptionFilter) private readonly appExceptionFilter: IExceptionFilter,
   ) {
     this.server = express();
+  }
+
+  private async initExceptionFilters() {
+    this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
 
   private async initDb() {
@@ -49,6 +55,10 @@ export class RestApplication {
     this.logger.info('Init app-level middleware');
     await this.initMiddleware();
     this.logger.info('App-level middleware initialization completed');
+
+    this.logger.info('Init exception filters');
+    await this.initExceptionFilters();
+    this.logger.info('Exception filters initialization compleated');
 
     this.logger.info('Try to init server…');
     await this.initServer();

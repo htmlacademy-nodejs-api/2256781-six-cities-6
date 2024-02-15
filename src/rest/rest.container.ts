@@ -7,6 +7,7 @@ import { TConfigSchema } from '../shared/types/index.js';
 import { IDatabaseClient, MongoDatabaseClient } from '../shared/libs/index.js';
 import { createOfferContainer, createUserContainer } from '../shared/modules/index.js';
 import { createCommentContainer } from '../shared/modules/comment/comment-container.js';
+import { AppExceptionFilter, IExceptionFilter } from './index.js';
 
 function createRestApplicationContainer() {
   const restApplicationContainer = new Container();
@@ -15,6 +16,7 @@ function createRestApplicationContainer() {
   restApplicationContainer.bind<ILogger>(Component.Logger).to(PinoLogger).inSingletonScope();
   restApplicationContainer.bind<IConfig<TConfigSchema>>(Component.Config).to(EnvConfig).inSingletonScope();
   restApplicationContainer.bind<IDatabaseClient>(Component.DatabaseClient).to(MongoDatabaseClient).inSingletonScope();
+  restApplicationContainer.bind<IExceptionFilter>(Component.ExceptionFilter).to(AppExceptionFilter).inSingletonScope();
 
   return restApplicationContainer;
 }

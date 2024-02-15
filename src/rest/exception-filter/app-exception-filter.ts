@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { NextFunction, Request, Response } from 'express';
-import { IExceptionFilter } from './exception-filter.interface.js';
+import { IExceptionFilter } from '../index.js';
 import { ILogger } from '../../shared/libs/index.js';
 import { Component } from '../../shared/types/index.js';
 
