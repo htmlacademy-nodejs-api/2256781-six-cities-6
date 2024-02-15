@@ -5,7 +5,6 @@ import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/component.enum.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
-import { IOfferService } from '../shared/modules/index.js';
 
 @injectable()
 export class RestApplication {
@@ -15,8 +14,6 @@ export class RestApplication {
     @inject(Component.Logger) private readonly logger: ILogger,
     @inject(Component.Config) private readonly config: IConfig<TConfigSchema>,
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
-    @inject(Component.OfferService) private readonly offerService: IOfferService,
-
   ) {
     this.server = express();
   }
@@ -48,5 +45,9 @@ export class RestApplication {
     this.logger.info('Try to init server…');
     await this.initServer();
     this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
+
+    this.server.get('/', (_req, res) => {
+      res.send('Hello');
+    });
   }
 }
