@@ -1,4 +1,5 @@
 import { inject, injectable } from 'inversify';
+import express, { Express } from 'express';
 import { TConfigSchema } from '../shared/types/index.js';
 import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/component.enum.js';
@@ -8,13 +9,17 @@ import { IOfferService } from '../shared/modules/index.js';
 
 @injectable()
 export class RestApplication {
+  private readonly server: Express;
+
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger,
     @inject(Component.Config) private readonly config: IConfig<TConfigSchema>,
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
     @inject(Component.OfferService) private readonly offerService: IOfferService,
 
-  ) { }
+  ) {
+    this.server = express();
+  }
 
   private async initDb() {
     const mongoUri = getMongoURI({
@@ -28,15 +33,20 @@ export class RestApplication {
     return this.databaseClient.connect(mongoUri);
   }
 
+  private async initServer() {
+    const port = this.config.get('PORT');
+    this.server.listen(port);
+  }
+
   public async init() {
     this.logger.info('Application initialization');
-    this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
 
     this.logger.info('Init database…');
     await this.initDb();
     this.logger.info('Init database completed');
 
-    const res = await this.offerService.find();
-    console.log(res);
+    this.logger.info('Try to init server…');
+    await this.initServer();
+    this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
   }
 }
