@@ -1,7 +1,7 @@
 import { Response, Router } from 'express';
 import { Route } from '../../shared/types/index.js';
 
-export interface Controller {
+export interface IController {
   readonly router: Router;
   addRoute(route: Route): void;
   send<T>(res: Response, statusCode: number, data: T): void;

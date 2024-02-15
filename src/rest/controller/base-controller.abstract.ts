@@ -1,14 +1,14 @@
 import { injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { Response, Router } from 'express';
-import { Controller } from './controller.interface.js';
+import { IController } from './controller.interface.js';
 import { ILogger } from '../../shared/libs/index.js';
 import { Route } from '../../shared/types/index.js';
 
 const DEFAULT_CONTENT_TYPE = 'application/json';
 
 @injectable()
-export abstract class BaseController implements Controller {
+export abstract class BaseController implements IController {
   private readonly _router: Router;
 
   constructor(
