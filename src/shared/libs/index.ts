@@ -23,3 +23,4 @@ export * from './rest/exception-filter/exception-filter.interface.js';
 export * from './rest/exception-filter/app-exception-filter.js';
 export * from './rest/types/request.params.type.js';
 export * from './rest/types/request-body.type.js';
+export * from './rest/errors/http-error.js';
