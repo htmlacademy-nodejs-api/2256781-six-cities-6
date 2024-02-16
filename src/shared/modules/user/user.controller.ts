@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { Response as IResponse, NextFunction as INextFunction } from 'express';
+import { Response as IResponse } from 'express';
 import { BaseController, HttpMethod } from '../../libs/index.js';
 import { ILogger } from '../../libs/index.js';
 import { Component } from '../../types/index.js';
@@ -19,12 +19,7 @@ export class UserController extends BaseController {
   public async create(
     _req: TCreateUserRequest,
     _res: IResponse,
-    next: INextFunction
   ): Promise<void> {
-    try {
-      throw new Error('[UserController] Oops');
-    } catch (error) {
-      return next(error);
-    }
+    throw new Error('[UserController] Oops');
   }
 }
