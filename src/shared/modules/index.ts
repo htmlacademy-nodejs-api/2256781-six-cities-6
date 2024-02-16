@@ -5,6 +5,8 @@ export * from './user/user-service.interface.js';
 export * from './user/default-user.service.js';
 export * from './user/user.container.js';
 export * from './user/user.constant.js';
+export * from './user/create-user-request.type.js';
+export * from './user/user.controller.js';
 export * from './offer/dto/create-offer.dto.js';
 export * from './offer/dto/update-offer.dto.js';
 export * from './offer/default-offer.service.js';

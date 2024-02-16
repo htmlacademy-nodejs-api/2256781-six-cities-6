@@ -12,5 +12,5 @@ export * from './config.type.js';
 export * from './location.enum.js';
 export * from './user.unique-query.type.js';
 export * from './sort-type.enum.js';
-export * from './http-method.enum.js';
-export * from './route.interface.js';
+export * from '../libs/rest/types/http-method.enum.js';
+export * from '../libs/rest/types/route.interface.js';

@@ -2,8 +2,8 @@ import { injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { Response, Router } from 'express';
 import { IController } from './controller.interface.js';
-import { ILogger } from '../../shared/libs/index.js';
-import { Route } from '../../shared/types/index.js';
+import { ILogger } from '../../index.js';
+import { IRoute } from '../../index.js';
 
 const DEFAULT_CONTENT_TYPE = 'application/json';
 
@@ -21,7 +21,7 @@ export abstract class BaseController implements IController {
     return this._router;
   }
 
-  public addRoute(route: Route) {
+  public addRoute(route: IRoute) {
     this._router[route.method](route.path, route.handler.bind(this));
     this.logger.info(`Route registered: ${route.method.toUpperCase()} ${route.path}`);
   }
