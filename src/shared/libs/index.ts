@@ -25,3 +25,4 @@ export * from './rest/types/request.params.type.js';
 export * from './rest/types/request-body.type.js';
 export * from './rest/errors/http-error.js';
 export * from './rest/middleware/middleware.interface.js';
+export * from './rest/middleware/validate-object-id.middleware.js';
