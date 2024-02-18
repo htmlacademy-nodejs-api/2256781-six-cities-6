@@ -304,6 +304,32 @@ paths:
                 items:
                   $ref: '#/components/schemas/comment'
 
+  /comments:
+    post:
+      tags:
+        - comments
+      summary: Создание комментария
+      description: Создаёт новый комментарий предложения.
+
+      requestBody:
+        description: Данные для создания комментария.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+        required: true
+
+      responses:
+        "201":
+          description: Комментарий успешно создан.
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/comment'
+        "403":
+          description: Создавать комментарии могут только авторизованные пользователи.
+
 components:
   schemas:
     user:
@@ -498,29 +524,3 @@ components:
         author:
           type: object
           $ref: '#/components/schemas/author'
-
-
-# post:
-#       tags:
-#         - comments
-#       summary: Создание комментария
-#       description: Создаёт новый комментарий предложения.
-
-#       requestBody:
-#         description: Данные для создания комментария.
-#         content:
-#           application/json:
-#             schema:
-#               $ref: '#/components/schemas/comment'
-#         required: true
-
-#       responses:
-#         "201":
-#           description: Комментарий успешно создан.
-#           content:
-#             application/json:
-#               schema:
-#                 type: object
-#                 $ref: '#/components/schemas/comment'
-#         "403":
-#           description: Создавать комментарии могут только авторизованные пользователи.
