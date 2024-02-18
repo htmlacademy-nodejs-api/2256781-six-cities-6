@@ -29,7 +29,7 @@ function createRestApplicationContainer() {
 
 export const getRestApplicationContainer = () => Container.merge(
   createRestApplicationContainer(),
-  createUserContainer(),
   createOfferContainer(),
+  createUserContainer(),
   createCommentContainer(),
 );

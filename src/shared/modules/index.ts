@@ -1,6 +1,7 @@
 export * from './user/user.entity.js';
 export * from './user/dto/create-user.dto.js';
 export * from './user/dto/update-user.dto.js';
+export * from './user/rdo/user.rdo.js';
 export * from './user/user-service.interface.js';
 export * from './user/default-user.service.js';
 export * from './user/user.container.js';
@@ -22,6 +23,8 @@ export * from './offer/type/update-offer-request.type.js';
 export * from './offer/type/param-offer-id.type.js';
 export * from './offer/offer.controller.js';
 export * from './comment/dto/create-comment.dto.js';
+export * from './comment/rdo/comment.rdo.js';
+export * from './comment/comment.controller.js';
 export * from './comment/comment-container.js';
 export * from './comment/comment-service.interface.js';
 export * from './comment/comment.constant.js';
