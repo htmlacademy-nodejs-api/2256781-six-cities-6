@@ -287,10 +287,10 @@ paths:
         "403":
           description: Изменять статус может только авторизованный пользователь.
 
-  /comments/{offerId}:
+  /offers/{offerId}/comments:
     get:
       tags:
-        - comments
+        - offers
       summary: Получение комментариев
       description: Получает список комментариев предложения.
 
@@ -303,30 +303,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/comment'
-    post:
-      tags:
-        - comments
-      summary: Создание комментария
-      description: Создаёт новый комментарий предложения.
-
-      requestBody:
-        description: Данные для создания комментария.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/comment'
-        required: true
-
-      responses:
-        "201":
-          description: Комментарий успешно создан.
-          content:
-            application/json:
-              schema:
-                type: object
-                $ref: '#/components/schemas/comment'
-        "403":
-          description: Создавать комментарии могут только авторизованные пользователи.
 
 components:
   schemas:
@@ -522,3 +498,29 @@ components:
         author:
           type: object
           $ref: '#/components/schemas/author'
+
+
+# post:
+#       tags:
+#         - comments
+#       summary: Создание комментария
+#       description: Создаёт новый комментарий предложения.
+
+#       requestBody:
+#         description: Данные для создания комментария.
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/comment'
+#         required: true
+
+#       responses:
+#         "201":
+#           description: Комментарий успешно создан.
+#           content:
+#             application/json:
+#               schema:
+#                 type: object
+#                 $ref: '#/components/schemas/comment'
+#         "403":
+#           description: Создавать комментарии могут только авторизованные пользователи.
