@@ -8,6 +8,7 @@ export * from './user/user.container.js';
 export * from './user/user.constant.js';
 export * from './user/create-user-request.type.js';
 export * from './user/user.controller.js';
+export * from './offer/dto/location.dto.js';
 export * from './offer/dto/create-offer.dto.js';
 export * from './offer/dto/update-offer.dto.js';
 export * from './offer/rdo/offer-preview.rdo.js';
