@@ -17,7 +17,7 @@ import {
   OfferGood,
   OfferType,
   City,
-  TLocation
+  TLocation,
 } from '../../../types/index.js';
 import { OFFER_DTO } from '../../index.js';
 
@@ -29,7 +29,7 @@ export class CreateOfferDto {
   public title!: string;
 
   @IsNotEmpty({ message: OFFER_DTO.DATE_MSG })
-  public date!: string;
+  public date!: Date;
 
   @IsNotEmpty()
   @IsString()
