@@ -1,4 +1,4 @@
-export const USER_CREATE_DTO = {
+export const USER_DTO = {
   NAME_MIN: 1,
   NAME_MAX: 15,
   PASSWORD_MIN: 6,
