@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { Response, Router } from 'express';
-import { IController } from './controller.interface.js';
+import { IController } from '../../index.js';
 import { ILogger } from '../../index.js';
 import { IRoute } from '../../index.js';
 import asyncHandler from 'express-async-handler';

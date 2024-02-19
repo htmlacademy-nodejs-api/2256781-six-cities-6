@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { types } from '@typegoose/typegoose';
 import { Component } from '../../types/index.js';
-import { IOfferService } from './offer-service.interface.js';
+import { IOfferService } from '../index.js';
 import { DefaultOfferService, OfferController } from '../index.js';
 import { OfferEntity } from '../index.js';
 import { OfferModel } from '../index.js';

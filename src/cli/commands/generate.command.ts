@@ -1,5 +1,5 @@
 import got from 'got';
-import { ICommand } from './command.interface.js';
+import { ICommand } from '../index.js';
 import { TMockServerData } from '../../shared/types/index.js';
 import { TSVOfferGenerator } from '../../shared/libs/index.js';
 import { getErrorMessage } from '../../shared/helpers/index.js';

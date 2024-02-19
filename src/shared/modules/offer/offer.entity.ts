@@ -1,5 +1,14 @@
-import { Ref, defaultClasses, modelOptions, prop } from '@typegoose/typegoose';
-import { OfferGood, OfferType, City } from '../../types/index.js';
+import {
+  Ref,
+  defaultClasses,
+  modelOptions,
+  prop,
+} from '@typegoose/typegoose';
+import {
+  OfferGood,
+  OfferType,
+  City,
+} from '../../types/index.js';
 import { UserEntity } from '../index.js';
 import { TLocation } from '../../types/index.js';
 

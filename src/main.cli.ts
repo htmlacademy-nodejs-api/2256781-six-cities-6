@@ -4,7 +4,7 @@ import 'reflect-metadata';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { config } from 'dotenv';
-import { ICommand } from './cli/commands/command.interface.js';
+import { ICommand } from './cli/index.js';
 import { CLIApplication } from './cli/index.js';
 
 async function bootstrap() {

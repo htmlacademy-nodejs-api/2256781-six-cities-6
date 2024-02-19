@@ -6,8 +6,8 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { TUserType } from '../../../types/user-type.enum.js';
-import { USER_DTO } from '../user.constant.js';
+import { TUserType } from '../../../types/index.js';
+import { USER_DTO } from '../../index.js';
 
 export class UpdateUserDto {
   @IsOptional()

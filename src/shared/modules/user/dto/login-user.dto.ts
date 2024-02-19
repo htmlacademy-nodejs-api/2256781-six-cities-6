@@ -1,5 +1,5 @@
 import { IsEmail, IsString, Length } from 'class-validator';
-import { USER_DTO } from '../user.constant.js';
+import { USER_DTO } from '../../index.js';
 
 export class LoginUserDto {
   @IsEmail()

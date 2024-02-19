@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { ICommentService } from './comment-service.interface.js';
+import { ICommentService } from '../index.js';
 import { Component, SortType } from '../../types/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { CommentEntity } from '../index.js';

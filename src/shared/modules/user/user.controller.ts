@@ -1,15 +1,20 @@
 import { inject, injectable } from 'inversify';
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { BaseController, HttpError, HttpMethod, ValidateDtoMiddleware } from '../../libs/index.js';
+import {
+  BaseController,
+  HttpError,
+  HttpMethod,
+  ValidateDtoMiddleware,
+} from '../../libs/index.js';
 import { ILogger } from '../../libs/index.js';
 import { Component, TConfigSchema } from '../../types/index.js';
-import { TCreateUserRequest } from './create-user-request.type.js';
-import { IUserService } from './user-service.interface.js';
+import { TCreateUserRequest } from '../index.js';
+import { IUserService } from '../index.js';
 import { IConfig } from '../../libs/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { UserRdo } from './rdo/user.rdo.js';
-import { TLoginUserRequest } from './login-user-request.type.js';
+import { UserRdo } from '../index.js';
+import { TLoginUserRequest } from '../index.js';
 import { CreateUserDto } from '../index.js';
 import { LoginUserDto } from '../index.js';
 

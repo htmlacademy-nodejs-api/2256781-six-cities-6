@@ -1,6 +1,11 @@
-import { Ref, defaultClasses, modelOptions, prop } from '@typegoose/typegoose';
+import {
+  Ref,
+  defaultClasses,
+  modelOptions,
+  prop,
+} from '@typegoose/typegoose';
 import { IUser, TUserType } from '../../types/index.js';
-import { createSHA256 } from '../../helpers/hash.js';
+import { createSHA256 } from '../../helpers/index.js';
 import { OfferEntity } from '../index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging

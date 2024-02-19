@@ -1,11 +1,16 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpError, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../libs/index.js';
+import {
+  BaseController,
+  HttpError,
+  ValidateDtoMiddleware,
+  ValidateObjectIdMiddleware,
+} from '../../libs/index.js';
 import { ILogger } from '../../libs/index.js';
 import { Component, HttpMethod } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { IOfferService } from './offer-service.interface.js';
-import { TCreateOfferRequest } from './type/create-offer-request.type.js';
+import { IOfferService } from '../index.js';
+import { TCreateOfferRequest } from '../index.js';
 import { CommentRdo, CreateOfferDto, ICommentService, OfferRdo, ParamOfferId, UpdateOfferDto } from '../index.js';
 import { StatusCodes } from 'http-status-codes';
 

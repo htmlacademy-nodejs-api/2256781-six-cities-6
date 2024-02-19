@@ -2,8 +2,8 @@ import { config } from 'dotenv';
 import { inject, injectable } from 'inversify';
 import { IConfig } from '../index.js';
 import { ILogger } from '../index.js';
-import { configRestSchema } from './rest.schema.js';
-import { Component } from '../../types/component.enum.js';
+import { configRestSchema } from '../index.js';
+import { Component } from '../../types/index.js';
 import { TConfigSchema } from '../../types/index.js';
 
 @injectable()

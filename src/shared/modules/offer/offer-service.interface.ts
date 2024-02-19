@@ -1,7 +1,7 @@
 import { DocumentType } from '@typegoose/typegoose';
-import { CreateOfferDto } from './dto/create-offer.dto.js';
+import { CreateOfferDto } from '../index.js';
 import { OfferEntity, UpdateOfferDto } from '../index.js';
-import { SortType } from '../../types/sort-type.enum.js';
+import { SortType } from '../../types/index.js';
 
 export interface IOfferService {
   create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>>;

@@ -1,7 +1,11 @@
 import dayjs from 'dayjs';
 import { OfferGenerator } from '../index.js';
 import { TMockServerData, OfferType } from '../../types/index.js';
-import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
+import {
+  generateRandomValue,
+  getRandomItem,
+  getRandomItems,
+} from '../../helpers/index.js';
 import { GENERATOR_CONFIG } from '../index.js';
 
 export class TSVOfferGenerator implements OfferGenerator {

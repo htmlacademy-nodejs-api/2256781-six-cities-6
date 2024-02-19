@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { RestApplication } from './rest.application.js';
+import { RestApplication } from './index.js';
 import { Component } from '../shared/types/index.js';
 import {
   IConfig,
@@ -9,7 +9,7 @@ import {
   AppExceptionFilter,
   EnvConfig,
   MongoDatabaseClient,
-  PinoLogger
+  PinoLogger,
 } from '../shared/libs/index.js';
 import { TConfigSchema } from '../shared/types/index.js';
 import { createOfferContainer, createUserContainer } from '../shared/modules/index.js';

@@ -1,9 +1,16 @@
 import { DocumentType, types } from '@typegoose/typegoose';
 import { inject, injectable } from 'inversify';
-import { Component } from '../../types/component.enum.js';
-import { DEFAULT_OFFER_VALUE, IOfferService, OfferEntity, CreateOfferDto, getOfferAggregation, UpdateOfferDto } from '../index.js';
+import { Component } from '../../types/index.js';
+import {
+  DEFAULT_OFFER_VALUE,
+  IOfferService,
+  OfferEntity,
+  CreateOfferDto,
+  getOfferAggregation,
+  UpdateOfferDto,
+} from '../index.js';
 import { ILogger } from '../../libs/index.js';
-import { SortType } from '../../types/sort-type.enum.js';
+import { SortType } from '../../types/index.js';
 
 @injectable()
 export class DefaultOfferService implements IOfferService {

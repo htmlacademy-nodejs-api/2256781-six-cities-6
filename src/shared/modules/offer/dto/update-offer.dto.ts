@@ -1,6 +1,23 @@
-import { ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsEnum, IsInt, IsOptional, IsString, Max, MaxLength, Min, MinLength } from 'class-validator';
-import { OfferGood, OfferType, City } from '../../../types/index.js';
-import { OFFER_DTO } from '../offer.constant.js';
+import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
+} from 'class-validator';
+import {
+  OfferGood,
+  OfferType,
+  City,
+} from '../../../types/index.js';
+import { OFFER_DTO } from '../../index.js';
 
 export class UpdateOfferDto {
   @IsOptional()
