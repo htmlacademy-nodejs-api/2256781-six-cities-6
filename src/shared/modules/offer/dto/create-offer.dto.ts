@@ -12,14 +12,14 @@ import {
   MaxLength,
   Min,
   MinLength,
-  ValidateNested,
 } from 'class-validator';
 import {
   OfferGood,
   OfferType,
-  City
+  City,
+  TLocation
 } from '../../../types/index.js';
-import { LocationDto, OFFER_DTO } from '../../index.js';
+import { OFFER_DTO } from '../../index.js';
 
 export class CreateOfferDto {
   @IsNotEmpty()
@@ -27,6 +27,9 @@ export class CreateOfferDto {
   @MinLength(OFFER_DTO.TITLE_MIN_VAL, { message: OFFER_DTO.TITLE_MIN_MSG })
   @MaxLength(OFFER_DTO.TITLE_MAX_VAL, { message: OFFER_DTO.TITLE_MAX_MSG })
   public title!: string;
+
+  @IsNotEmpty({ message: OFFER_DTO.DATE_MSG })
+  public date!: string;
 
   @IsNotEmpty()
   @IsString()
@@ -43,7 +46,6 @@ export class CreateOfferDto {
   public previewImage!: string;
 
   @IsArray({ message: OFFER_DTO.IMAGES_FORMAT_MSG })
-  @MaxLength(OFFER_DTO.IMAGES_MAX_VAL, { message: OFFER_DTO.IMAGES_MAX_MSG })
   @ArrayMinSize(OFFER_DTO.IMAGES_MIN_SIZE_VAL, { message: OFFER_DTO.IMAGES_SIZE_MSG })
   @ArrayMaxSize(OFFER_DTO.IMAGES_MAX_SIZE_VAL, { message: OFFER_DTO.IMAGES_SIZE_MSG })
   public images!: string[];
@@ -88,6 +90,5 @@ export class CreateOfferDto {
   public userId!: string;
 
   @IsNotEmpty()
-  @ValidateNested({ each: true })
-  public location!: LocationDto[];
+  public location!: TLocation;
 }

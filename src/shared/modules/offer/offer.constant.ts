@@ -8,6 +8,7 @@ export const OFFER_DTO = {
   TITLE_MAX_VAL: 100,
   TITLE_MIN_MSG: 'The minimum length of the title should be 10 characters',
   TITLE_MAX_MSG: 'The maximum length of the title should be 10 characters',
+  DATE_MSG: 'The date must be filled in',
   DESC_MIN_VAL: 20,
   DESC_MAX_VAL: 1024,
   DESC_MIN_MSG: 'The minimum length of the description should be 20 characters',
