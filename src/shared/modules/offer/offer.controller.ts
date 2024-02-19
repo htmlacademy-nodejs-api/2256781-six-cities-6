@@ -5,13 +5,21 @@ import {
   HttpError,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
+  DocumentExistsMiddleware,
 } from '../../libs/index.js';
 import { ILogger } from '../../libs/index.js';
 import { Component, HttpMethod } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
 import { IOfferService } from '../index.js';
 import { TCreateOfferRequest } from '../index.js';
-import { CommentRdo, CreateOfferDto, ICommentService, OfferRdo, ParamOfferId, UpdateOfferDto } from '../index.js';
+import {
+  CommentRdo,
+  CreateOfferDto,
+  ICommentService,
+  OfferRdo,
+  ParamOfferId,
+  UpdateOfferDto,
+} from '../index.js';
 import { StatusCodes } from 'http-status-codes';
 
 @injectable()
@@ -52,7 +60,15 @@ export class OfferController extends BaseController {
       handler: this.delete,
       middlewares: [new ValidateObjectIdMiddleware('offerId')]
     });
-    this.addRoute({ path: '/:offerId/comments', method: HttpMethod.Get, handler: this.getComments });
+    this.addRoute({
+      path: '/:offerId/comments',
+      method: HttpMethod.Get,
+      handler: this.getComments,
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+      ]
+    });
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
