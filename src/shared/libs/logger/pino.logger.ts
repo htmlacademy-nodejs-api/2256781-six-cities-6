@@ -1,7 +1,11 @@
 import path from 'node:path';
-import { Logger as TPinoInstance, pino, transport } from 'pino';
+import {
+  Logger as TPinoInstance,
+  pino,
+  transport,
+} from 'pino';
 import { injectable } from 'inversify';
-import { ILogger } from './logger.interface.js';
+import { ILogger } from '../index.js';
 
 @injectable()
 export class PinoLogger implements ILogger {

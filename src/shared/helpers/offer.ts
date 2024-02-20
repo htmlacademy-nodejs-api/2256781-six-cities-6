@@ -1,4 +1,12 @@
-import { OfferGood, OfferType, City, IOffer, TUserType, IUser, TLocation } from '../types/index.js';
+import {
+  OfferGood,
+  OfferType,
+  City,
+  IOffer,
+  TUserType,
+  IUser,
+  TLocation,
+} from '../types/index.js';
 
 export function convertLineOfferToObject(dataLine: string) {
   const [

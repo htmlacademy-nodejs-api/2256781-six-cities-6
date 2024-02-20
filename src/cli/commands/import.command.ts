@@ -1,12 +1,29 @@
-import { ICommand } from './command.interface.js';
+import { ICommand } from '../index.js';
 import { EnvConfig, IConfig, TSVFileReader } from '../../shared/libs/index.js';
-import { convertLineOfferToObject, createOffer, getErrorMessage, getMongoURI } from '../../shared/helpers/index.js';
-import { CommentModel, DefaultCommentService, ICommentService } from '../../shared/modules/index.js';
-import { DefaultOfferService, OfferModel, IOfferService } from '../../shared/modules/index.js';
+import {
+  convertLineOfferToObject,
+  createOffer,
+  getErrorMessage,
+  getMongoURI,
+} from '../../shared/helpers/index.js';
+import {
+  CommentModel,
+  DefaultCommentService,
+  ICommentService,
+} from '../../shared/modules/index.js';
+import {
+  DefaultOfferService,
+  OfferModel,
+  IOfferService,
+} from '../../shared/modules/index.js';
 import { IDatabaseClient, MongoDatabaseClient } from '../../shared/libs/index.js';
 import { ILogger } from '../../shared/libs/index.js';
 import { ConsoleLogger } from '../../shared/libs/index.js';
-import { DefaultUserService, UserModel, IUserService } from '../../shared/modules/index.js';
+import {
+  DefaultUserService,
+  UserModel,
+  IUserService,
+} from '../../shared/modules/index.js';
 import { IOffer, IUser, TConfigSchema } from '../../shared/types/index.js';
 
 export class ImportCommand implements ICommand {

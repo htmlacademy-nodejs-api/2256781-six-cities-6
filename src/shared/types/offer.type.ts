@@ -1,4 +1,10 @@
-import { OfferGood, OfferType, City, TLocation, IUser } from './index.js';
+import {
+  OfferGood,
+  OfferType,
+  City,
+  TLocation,
+  IUser,
+} from './index.js';
 
 export interface IOffer {
   id?: string,

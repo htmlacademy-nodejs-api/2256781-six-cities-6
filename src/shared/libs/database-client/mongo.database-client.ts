@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { setTimeout } from 'node:timers/promises';
+import * as Mongoose from 'mongoose';
 import { IDatabaseClient } from '../index.js';
 import { Component } from '../../types/index.js';
 import { ILogger } from '../index.js';
 import { RETRY_SETTINGS } from '../index.js';
-import * as Mongoose from 'mongoose';
 
 @injectable()
 export class MongoDatabaseClient implements IDatabaseClient {

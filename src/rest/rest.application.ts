@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import express, { Express } from 'express';
 import { TConfigSchema } from '../shared/types/index.js';
 import { IConfig, ILogger } from '../shared/libs/index.js';
-import { Component } from '../shared/types/component.enum.js';
+import { Component } from '../shared/types/index.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
 import { getMongoURI } from '../shared/helpers/index.js';
 import { IController, IExceptionFilter } from '../shared/libs/index.js';
@@ -17,6 +17,8 @@ export class RestApplication {
     @inject(Component.DatabaseClient) private readonly databaseClient: IDatabaseClient,
     @inject(Component.ExceptionFilter) private readonly appExceptionFilter: IExceptionFilter,
     @inject(Component.UserController) private readonly userController: IController,
+    @inject(Component.OfferController) private readonly offerController: IController,
+    @inject(Component.CommentController) private readonly commentController: IController,
   ) {
     this.server = express();
   }
@@ -48,6 +50,8 @@ export class RestApplication {
 
   private async initControllers() {
     this.server.use('/users', this.userController.router);
+    this.server.use('/offers', this.offerController.router);
+    this.server.use('/comments', this.commentController.router);
   }
 
   public async init() {

@@ -1,5 +1,5 @@
-import { CommandParser } from './command-parser.js';
-import { ICommand } from './commands/command.interface.js';
+import { CommandParser } from './index.js';
+import { ICommand } from './index.js';
 
 export class CLIApplication {
   private commands: Record<string, ICommand> = {};

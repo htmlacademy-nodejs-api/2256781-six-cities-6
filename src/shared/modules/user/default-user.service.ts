@@ -1,11 +1,11 @@
-import { IUserService, UpdateUserDto } from '../index.js';
+import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
+import { IUserService, UpdateUserDto } from '../index.js';
 import { UserEntity } from '../index.js';
 import { CreateUserDto } from '../index.js';
-import { inject, injectable } from 'inversify';
-import { Component } from '../../types/component.enum.js';
+import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/index.js';
-import { TUniqueQuery } from '../../types/user.unique-query.type.js';
+import { TUniqueQuery } from '../../types/index.js';
 
 @injectable()
 export class DefaultUserService implements IUserService {

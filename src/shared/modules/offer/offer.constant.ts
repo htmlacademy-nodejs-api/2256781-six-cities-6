@@ -3,25 +3,49 @@ export const DEFAULT_OFFER_VALUE = {
   PREMIUM_COUNT: 3,
 } as const;
 
-export const OFFER_FIELD_RESTRICTION = {
-  TITLE_LENGTH: {
-    MIN: 10,
-    MAX: 100,
-  },
-  DESCRIPTION_LENGTH: {
-    MIN: 20,
-    MAX: 1024,
-  },
-  BEDROOMS_COUNT: {
-    MIN: 1,
-    MAX: 8,
-  },
-  ADULTS_COUNT: {
-    MIN: 1,
-    MAX: 10,
-  },
-  PRICE: {
-    MIN: 100,
-    MAX: 100_000,
-  }
+export const OFFER_DTO = {
+  TITLE_MIN_VAL: 10,
+  TITLE_MAX_VAL: 100,
+  TITLE_MIN_MSG: 'The minimum length of the title should be 10 characters',
+  TITLE_MAX_MSG: 'The maximum length of the title should be 10 characters',
+  DATE_MSG: 'The date must be filled in',
+  DESC_MIN_VAL: 20,
+  DESC_MAX_VAL: 1024,
+  DESC_MIN_MSG: 'The minimum length of the description should be 20 characters',
+  DESC_MAX_MSG: 'The maximum length of the description should be 1024 characters',
+  PREVIEW_VAL: 256,
+  PREVIEW_MSG: 'The line is too short',
+  IMAGES_FORMAT_MSG: 'The images must be an array',
+  IMAGES_MAX_VAL: 256,
+  IMAGES_MAX_MSG: 'The length of any URL in the array must be no more than 256 characters',
+  IMAGES_MIN_SIZE_VAL: 6,
+  IMAGES_MAX_SIZE_VAL: 6,
+  IMAGES_SIZE_MSG: 'The array should always contain 6 images',
+  PREMIUM_MSG: 'The premium field must be logical',
+  FAVORITE_MSG: 'The favorite field must be logical',
+  CITY_MSG: 'The city field must be any of: Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf',
+  TYPE_MSG: 'The type must be any of: apartment, house, room, hotel',
+  GOODS_FORMAT_MSG: 'The goods field must be an array',
+  GOODS_MSG: 'The goods must be any of: Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge',
+  BEDROOMS_MIN_VAL: 1,
+  BEDROOMS_MAX_VAL: 8,
+  BEDROOMS_FORMAT_MSG: 'The bedrooms field must be a number',
+  BEDROOMS_MIN_MSG: 'The minimum length of the bedrooms should be 1 characters',
+  BEDROOMS_MAX_MSG: 'The maximum length of the bedrooms should be 8 characters',
+  ADULTS_FORMAT_MSG: 'The maxAdults field must be a number',
+  ADULTS_MIN_VAL: 1,
+  ADULTS_MAX_VAL: 10,
+  ADULTS_MIN_MSG: 'The minimum length of the adults should be 1 characters',
+  ADULTS_MAX_MSG: 'The maximum length of the adults should be 10 characters',
+  PRICE_MIN_VAL: 100,
+  PRICE_MAX_VAL: 100_000,
+  PRICE_MIN_MSG: 'The minimum value of the price should be 10 characters',
+  PRICE_MAX_MSG: 'The maximum value of the price should be 10 characters',
+  PRICE_FORMAT_MSG: 'The price field must be a number',
+  USER_ID_MSG: 'The userId must be a valid ID',
+} as const;
+
+export const LOCATION_DTO = {
+  LATITUDE_FORMAT_MSG: 'The latitude field must be a number',
+  LONGITUDE_FORMAT_MSG: 'The longitude field must be a number',
 } as const;

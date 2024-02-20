@@ -287,10 +287,10 @@ paths:
         "403":
           description: Изменять статус может только авторизованный пользователь.
 
-  /comments/{offerId}:
+  /offers/{offerId}/comments:
     get:
       tags:
-        - comments
+        - offers
       summary: Получение комментариев
       description: Получает список комментариев предложения.
 
@@ -303,6 +303,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/comment'
+
+  /comments:
     post:
       tags:
         - comments
