@@ -1,6 +1,6 @@
-import { OfferGood, OfferType, City, TLocation } from '../../../types/index.js';
+import { OfferGood, OfferType, City } from '../../../types/index.js';
 
-export class CreateOfferDto {
+export class UpdateOfferDto {
   public date!: Date;
 
   public title!: string;
@@ -29,9 +29,7 @@ export class CreateOfferDto {
 
   public goods!: OfferGood[];
 
-  public userId!: string;
-
   public commentCount!: number;
 
-  public location!: TLocation;
+  public location!: string;
 }

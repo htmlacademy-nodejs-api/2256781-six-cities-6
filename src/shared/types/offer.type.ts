@@ -1,6 +1,7 @@
 import { OfferGood, OfferType, City, TLocation, IUser } from './index.js';
 
 export interface IOffer {
+  id?: string,
   date: Date;
   title: string;
   description: string;

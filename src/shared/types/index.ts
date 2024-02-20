@@ -11,3 +11,4 @@ export * from './component.enum.js';
 export * from './config.type.js';
 export * from './location.enum.js';
 export * from './user.unique-query.type.js';
+export * from './sort-type.enum.js';

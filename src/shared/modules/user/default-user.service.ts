@@ -1,7 +1,7 @@
-import { IUserService } from '../index.js';
+import { IUserService, UpdateUserDto } from '../index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { UserEntity } from '../index.js';
-import { CreateUserDto } from './dto/create-user.dto.js';
+import { CreateUserDto } from '../index.js';
 import { inject, injectable } from 'inversify';
 import { Component } from '../../types/component.enum.js';
 import { ILogger } from '../../libs/index.js';
@@ -11,7 +11,7 @@ import { TUniqueQuery } from '../../types/user.unique-query.type.js';
 export class DefaultUserService implements IUserService {
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger,
-    @inject(Component.OfferModel) private readonly userModel: types.ModelType<UserEntity>
+    @inject(Component.UserModel) private readonly userModel: types.ModelType<UserEntity>
   ) { }
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
@@ -25,7 +25,7 @@ export class DefaultUserService implements IUserService {
   }
 
   public async findUnique(data: TUniqueQuery): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne(data);
+    return await this.userModel.findOne(data).exec();
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
@@ -36,5 +36,15 @@ export class DefaultUserService implements IUserService {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async updateById(
+    userId: string,
+    dto: UpdateUserDto,
+  ): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel
+      .findByIdAndUpdate(userId, dto, { new: true })
+      .populate(['favorites'])
+      .exec();
   }
 }

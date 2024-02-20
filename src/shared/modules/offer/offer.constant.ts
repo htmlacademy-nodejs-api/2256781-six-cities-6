@@ -1,3 +1,8 @@
+export const DEFAULT_OFFER_VALUE = {
+  OFFER_COUNT: 60,
+  PREMIUM_COUNT: 3,
+} as const;
+
 export const OFFER_FIELD_RESTRICTION = {
   TITLE_LENGTH: {
     MIN: 10,

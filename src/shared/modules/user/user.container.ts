@@ -8,7 +8,7 @@ import { UserEntity, UserModel } from '../index.js';
 export function createUserContainer() {
   const userContainer = new Container();
   userContainer.bind<IUserService>(Component.UserService).to(DefaultUserService).inSingletonScope();
-  userContainer.bind<types.ModelType<UserEntity>>(Component.OfferModel).toConstantValue(UserModel);
+  userContainer.bind<types.ModelType<UserEntity>>(Component.UserModel).toConstantValue(UserModel);
 
   return userContainer;
 }

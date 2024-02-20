@@ -28,6 +28,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     const user = `${getRandomItem(this.mockData.userNames)};${getRandomItem<string>(this.mockData.userTypes)};${getRandomItem(this.mockData.userAvatars)};${getRandomItem(this.mockData.userEmails)};${getRandomItem(this.mockData.userPasswords)}`;
     const commentCount = generateRandomValue(GENERATOR_CONFIG.MIN_REVIEW_COUNT, GENERATOR_CONFIG.MAX_REVIEW_COUNT);
     const location = this.mockData.locations[cityIndex];
+    const comments = getRandomItems<string>(this.mockData.userReviews, commentCount).join(';');
 
     return [
       date,
@@ -46,7 +47,8 @@ export class TSVOfferGenerator implements OfferGenerator {
       goods,
       user,
       commentCount,
-      location
+      location,
+      comments,
     ].join('\t');
   }
 }

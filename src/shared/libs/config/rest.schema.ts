@@ -1,10 +1,10 @@
 import convict from 'convict';
 import validator from 'convict-format-with-validator';
-import { TRestSchema } from '../../types/index.js';
+import { TConfigSchema } from '../../types/index.js';
 
 convict.addFormats(validator);
 
-export const configRestSchema = convict<TRestSchema>({
+export const configRestSchema = convict<TConfigSchema>({
   PORT: {
     doc: 'Port for incoming connections',
     format: 'port',
