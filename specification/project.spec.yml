@@ -129,7 +129,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/previewOffer'
+                  $ref: '#/components/schemas/offerPreview'
     post:
       tags:
         - offers
@@ -218,7 +218,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/previewOffer'
+                  $ref: '#/components/schemas/offerPreview'
 
   /offers/favorites:
     get:
@@ -235,7 +235,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/previewOffer'
+                  $ref: '#/components/schemas/offerPreview'
         "403":
           description: Ресурс доступен только авторизованным клиентам.
 
@@ -444,7 +444,7 @@ components:
         location:
           type: object
           $ref: '#/components/schemas/location'
-    previewOffer:
+    offerPreview:
       type: object
       properties:
         id:

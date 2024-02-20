@@ -22,3 +22,19 @@ export interface IOffer {
 }
 
 export type TOffers = IOffer[];
+
+export type TOfferPreview = {
+  id: string;
+  date: Date;
+  city: City;
+  previewImage: string;
+  title: string;
+  favorite: boolean;
+  premium: boolean;
+  rating: number;
+  type: OfferType;
+  price: number;
+  commentCount: number;
+}
+
+export type TOffersPreview = TOfferPreview[];
