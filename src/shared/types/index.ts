@@ -15,3 +15,4 @@ export * from './sort-type.enum.js';
 export * from '../libs/rest/types/http-method.enum.js';
 export * from '../libs/rest/types/route.interface.js';
 export * from './create-comment-request.type.js';
+export * from './document-exists.interface.js';
