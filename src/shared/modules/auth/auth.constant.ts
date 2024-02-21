@@ -1,0 +1,4 @@
+export const JWT_SETTINGS = {
+  ALGORITHM: 'HS256',
+  EXPIRED: '2d',
+} as const;

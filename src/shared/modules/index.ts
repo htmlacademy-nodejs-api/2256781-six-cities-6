@@ -33,4 +33,8 @@ export * from './comment/comment-container.js';
 export * from './comment/comment-service.interface.js';
 export * from './comment/comment.entity.js';
 export * from './comment/default-comment.service.js';
+export * from './auth/auth.constant.js';
+export * from './auth/type/token-payload.type.js';
+export * from './auth/auth-service.interface.js';
+export * from './auth/default-auth.service.js';
 export * from './models.js';
