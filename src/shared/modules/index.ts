@@ -10,6 +10,8 @@ export * from './user/default-user.service.js';
 export * from './user/user.container.js';
 export * from './user/create-user-request.type.js';
 export * from './user/user.controller.js';
+export * from './user/user-service.interface.js';
+export * from './user/rdo/logged-user.rdo.js';
 export * from './offer/offer.constant.js';
 export * from './offer/dto/location.dto.js';
 export * from './offer/dto/create-offer.dto.js';
