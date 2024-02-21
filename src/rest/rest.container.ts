@@ -12,7 +12,7 @@ import {
   PinoLogger,
 } from '../shared/libs/index.js';
 import { TConfigSchema } from '../shared/types/index.js';
-import { createOfferContainer, createUserContainer } from '../shared/modules/index.js';
+import { createAuthContainer, createOfferContainer, createUserContainer } from '../shared/modules/index.js';
 import { createCommentContainer } from '../shared/modules/comment/comment-container.js';
 
 function createRestApplicationContainer() {
@@ -32,4 +32,5 @@ export const getRestApplicationContainer = () => Container.merge(
   createOfferContainer(),
   createUserContainer(),
   createCommentContainer(),
+  createAuthContainer(),
 );

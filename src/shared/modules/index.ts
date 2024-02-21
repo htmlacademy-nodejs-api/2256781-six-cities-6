@@ -41,4 +41,5 @@ export * from './auth/errors/base-user.exception.js';
 export * from './auth/errors/user-not-found.exception.js';
 export * from './auth/errors/user-password-incorrect.exception.js';
 export * from './auth/auth.exception-filter.js';
+export * from './auth/auth.container.js';
 export * from './models.js';
