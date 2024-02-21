@@ -30,3 +30,4 @@ export * from './rest/middleware/validate-dto.middleware.js';
 export * from './rest/middleware/document-exists.middleware.js';
 export * from './rest/middleware/upload-file.middleware.js';
 export * from './rest/middleware/parse-token.middleware.js';
+export * from './rest/middleware/private-route.middleware.js';
