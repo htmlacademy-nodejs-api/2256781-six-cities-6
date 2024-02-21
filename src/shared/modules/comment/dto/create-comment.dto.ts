@@ -25,7 +25,5 @@ export class CreateCommentDto {
   @IsMongoId()
   public offerId!: string;
 
-  @IsNotEmpty()
-  @IsMongoId()
   public userId!: string;
 }
