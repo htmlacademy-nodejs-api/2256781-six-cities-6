@@ -1,5 +1,5 @@
 import { IsNumber } from 'class-validator';
-import { LOCATION_DTO } from '../../index.js';
+import { LOCATION_DTO_SETTINGS } from '../../index.js';
 
 export class LocationDto {
   @IsNumber(
@@ -8,7 +8,7 @@ export class LocationDto {
       allowInfinity: false
     },
     {
-      message: LOCATION_DTO.LATITUDE_FORMAT_MSG
+      message: LOCATION_DTO_SETTINGS.LATITUDE_FORMAT_MSG
     },
   )
   public latitude!: number;
@@ -19,7 +19,7 @@ export class LocationDto {
       allowInfinity: false
     },
     {
-      message: LOCATION_DTO.LONGITUDE_FORMAT_MSG
+      message: LOCATION_DTO_SETTINGS.LONGITUDE_FORMAT_MSG
     },
   )
   public longitude!: number;

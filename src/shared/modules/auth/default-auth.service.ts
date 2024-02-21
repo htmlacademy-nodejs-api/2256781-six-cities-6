@@ -11,7 +11,7 @@ import {
 } from '../index.js';
 import { TTokenPayload } from '../index.js';
 import { IConfig } from '../../libs/index.js';
-import { UserNotFoundException, UserPasswordIncorrectException } from '';
+import { UserNotFoundException, UserPasswordException } from '../index.js';
 import { JWT_SETTINGS } from '../index.js';
 import { TConfigSchema } from '../../types/index.js';
 
@@ -51,7 +51,7 @@ export class DefaultAuthService implements IAuthService {
 
     if (!user.verifyPassword(dto.password, this.config.get('SALT'))) {
       this.logger.warn(`Incorrect password for ${dto.email}`);
-      throw new UserPasswordIncorrectException();
+      throw new UserPasswordException();
     }
 
     return user;

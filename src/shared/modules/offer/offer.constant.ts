@@ -3,7 +3,7 @@ export const DEFAULT_OFFER_VALUE = {
   PREMIUM_COUNT: 3,
 } as const;
 
-export const OFFER_DTO = {
+export const OFFER_DTO_SETTINGS = {
   TITLE_MIN_VAL: 10,
   TITLE_MAX_VAL: 100,
   TITLE_MIN_MSG: 'The minimum length of the title should be 10 characters',
@@ -45,7 +45,7 @@ export const OFFER_DTO = {
   USER_ID_MSG: 'The userId must be a valid ID',
 } as const;
 
-export const LOCATION_DTO = {
+export const LOCATION_DTO_SETTINGS = {
   LATITUDE_FORMAT_MSG: 'The latitude field must be a number',
   LONGITUDE_FORMAT_MSG: 'The longitude field must be a number',
 } as const;
