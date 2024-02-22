@@ -94,10 +94,10 @@ export class OfferController extends BaseController {
   }
 
   public async create(
-    { body }: TCreateOfferRequest,
+    { body, tokenPayload }: TCreateOfferRequest,
     res: Response,
   ): Promise<void> {
-    const result = await this.offerService.create(body);
+    const result = await this.offerService.create({ ...body, userId: tokenPayload.id });
     const offer = await this.offerService.findByOfferId(result.id);
     this.created(res, fillDTO(OfferRdo, offer));
   }

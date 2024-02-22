@@ -85,8 +85,6 @@ export class CreateOfferDto {
   @IsEnum(OfferGood, { each: true, message: OFFER_DTO_SETTINGS.GOODS_MSG })
   public goods!: OfferGood[];
 
-  @IsNotEmpty()
-  @IsMongoId({ message: OFFER_DTO_SETTINGS.USER_ID_MSG })
   public userId!: string;
 
   @IsNotEmpty()
