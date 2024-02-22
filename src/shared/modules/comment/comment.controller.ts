@@ -6,6 +6,7 @@ import {
   HttpError,
   HttpMethod,
   ValidateDtoMiddleware,
+  PrivateRouteMiddleware,
 } from '../../libs/index.js';
 import { Component } from '../../types/index.js';
 import { ILogger } from '../../libs/index.js';
@@ -30,6 +31,7 @@ export class CommentController extends BaseController {
       method: HttpMethod.Post,
       handler: this.create,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateCommentDto)
       ]
     });
