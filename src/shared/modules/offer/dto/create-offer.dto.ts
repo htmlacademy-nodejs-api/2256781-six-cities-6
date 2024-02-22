@@ -5,7 +5,6 @@ import {
   IsBoolean,
   IsEnum,
   IsInt,
-  IsMongoId,
   IsNotEmpty,
   IsString,
   Max,

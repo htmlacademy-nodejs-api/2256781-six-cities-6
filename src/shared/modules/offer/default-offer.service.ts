@@ -33,13 +33,15 @@ export class DefaultOfferService implements IOfferService {
   public async find(
     userId?: string,
     limit: number = DEFAULT_OFFER_VALUE.OFFER_COUNT,
-    sort: Record<string, SortType> = { date: SortType.Down }
+    sort: Record<string, SortType> = { date: SortType.Down },
+    isFavoriteOnly: boolean = false,
   ): Promise<DocumentType<OfferEntity>[]> {
     return await this.offerModel
       .aggregate([
+        ...getOfferAggregation(userId),
+        isFavoriteOnly ? { $match: { favorite: true } } : { $match: {} },
         { $sort: sort },
         { $limit: limit },
-        ...getOfferAggregation(userId),
       ])
       .exec();
   }

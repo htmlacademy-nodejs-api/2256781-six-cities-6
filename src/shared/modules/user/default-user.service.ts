@@ -25,7 +25,7 @@ export class DefaultUserService implements IUserService {
   }
 
   public async findUnique(data: TUniqueQuery): Promise<DocumentType<UserEntity> | null> {
-    return await this.userModel.findOne(data).exec();
+    return await this.userModel.findOne(data).populate(['favorites']).exec();
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
