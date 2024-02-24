@@ -1,13 +1,15 @@
 # Комментарии
+
 ## Создать комментарий
 
 POST http://localhost:4000/comments HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZDc5YmEyYzNmMWNkNTRmZjkzYmRlMSIsImVtYWlsIjoidGVzdEB0ZXN0LmlvIiwibmFtZSI6IlN2ZXRhIEl2YW5vdmEiLCJhdmF0YXJVcmwiOiJhdmF0YXIuc3ZnIiwidHlwZSI6InBybyIsImlhdCI6MTcwODYyODkyMywiZXhwIjoxNzA4ODAxNzIzfQ.wxF-O3RYlp1jZCk6RUqkLAjL2Wjh9v9hmXW1iRBQ5yA
 Content-Type: application/json
 
 {
-  "text": "Прекрасный номер!",
-  "rating": "4",
-  "offerId": "628a27d729c45f2bf9f6806a",
+  "text": "It's a lovely room!",
+  "rating": 4,
+  "offerId": "65cd2547bb5a9353b77b8cab",
   "userId": "628a27d729c45f2bf9f67ff2"
 }
 
