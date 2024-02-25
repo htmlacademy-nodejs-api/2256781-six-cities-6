@@ -5,7 +5,7 @@ import { DocumentType, types } from '@typegoose/typegoose';
 import { CommentEntity } from '../index.js';
 import { CreateCommentDto } from '../index.js';
 import { ILogger } from '../../libs/index.js';
-import { DEFAULT_COMMENT_COUNT } from '../index.js';
+import { DEFAULT_COMMENTS_COUNT } from '../index.js';
 
 @injectable()
 export class DefaultCommentService implements ICommentService {
@@ -22,7 +22,7 @@ export class DefaultCommentService implements ICommentService {
   }
 
   public async findByOfferId(offerId: string, count?: number): Promise<DocumentType<CommentEntity>[]> {
-    const limit = !count || count > DEFAULT_COMMENT_COUNT ? DEFAULT_COMMENT_COUNT : count;
+    const limit = !count || count > DEFAULT_COMMENTS_COUNT ? DEFAULT_COMMENTS_COUNT : count;
     return this.commentModel
       .find({ offerId: offerId }, {}, { limit })
       .sort({ createAt: SortType.Down })

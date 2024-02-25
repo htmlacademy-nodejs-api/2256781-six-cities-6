@@ -1,4 +1,4 @@
-export const DEFAULT_COMMENT_COUNT = 50;
+export const DEFAULT_COMMENTS_COUNT = 50;
 
 export const COMMENT_DTO_SETTINGS = {
   TEXT_MIN_VAL: 5,

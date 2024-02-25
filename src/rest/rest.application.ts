@@ -10,7 +10,7 @@ import { ParseTokenMiddleware } from '../shared/libs/index.js';
 
 @injectable()
 export class RestApplication {
-  private readonly server: Express;
+  protected readonly server: Express = express();
 
   constructor(
     @inject(Component.Logger) private readonly logger: ILogger,
@@ -21,9 +21,7 @@ export class RestApplication {
     @inject(Component.OfferController) private readonly offerController: IController,
     @inject(Component.CommentController) private readonly commentController: IController,
     @inject(Component.AuthExceptionFilter) private readonly authExceptionFilter: IExceptionFilter,
-  ) {
-    this.server = express();
-  }
+  ) { }
 
   private async initExceptionFilters() {
     this.server.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));

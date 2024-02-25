@@ -37,7 +37,7 @@ export class DefaultOfferService implements IOfferService {
     isFavoriteOnly: boolean = false,
   ): Promise<DocumentType<OfferEntity>[]> {
     const count = limit === null || limit === undefined ? DEFAULT_OFFER_VALUE.OFFER_COUNT : limit;
-    return await this.offerModel
+    return this.offerModel
       .aggregate([
         ...getOfferAggregation(userId),
         isFavoriteOnly ? { $match: { favorite: true } } : { $match: {} },
@@ -79,7 +79,7 @@ export class DefaultOfferService implements IOfferService {
   }
 
   public async exists(documentId: string): Promise<boolean> {
-    return (await this.offerModel
+    return (this.offerModel
       .exists({ _id: documentId })) !== null;
   }
 }

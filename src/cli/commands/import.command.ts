@@ -66,13 +66,13 @@ export class ImportCommand implements ICommand {
   }
 
   private async findOrCreateUser(user: IUser) {
-    return await this.userService.findOrCreate({
+    return this.userService.findOrCreate({
       ...user
     }, this.salt as string);
   }
 
   private async saveOffer(offer: IOffer, userId: string) {
-    return await this.offerService.create({
+    return this.offerService.create({
       ...offer,
       userId,
       location: offer.location,
