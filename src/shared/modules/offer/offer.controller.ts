@@ -10,7 +10,7 @@ import {
 import { ILogger } from '../../libs/index.js';
 import { Component, HttpMethod } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { IOfferService } from '../index.js';
+import { IOfferService, ParamCityName } from '../index.js';
 import { TCreateOfferRequest } from '../index.js';
 import {
   CommentRdo,
@@ -32,6 +32,7 @@ export class OfferController extends BaseController {
     this.logger.info('Register routes for OfferController…');
 
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
+
     this.addRoute({
       path: '/',
       method: HttpMethod.Post,
@@ -41,6 +42,7 @@ export class OfferController extends BaseController {
         new ValidateDtoMiddleware(CreateOfferDto)
       ]
     });
+
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Get,
@@ -50,6 +52,7 @@ export class OfferController extends BaseController {
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
     });
+
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Patch,
@@ -61,6 +64,7 @@ export class OfferController extends BaseController {
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
     });
+
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Delete,
@@ -71,6 +75,7 @@ export class OfferController extends BaseController {
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
     });
+
     this.addRoute({
       path: '/:offerId/comments',
       method: HttpMethod.Get,
@@ -80,10 +85,18 @@ export class OfferController extends BaseController {
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
     });
+
+    this.addRoute({
+      path: '/:city/premium',
+      method: HttpMethod.Get,
+      handler: this.getPremium,
+    });
   }
 
-  public async index(_req: Request, res: Response): Promise<void> {
-    const offers = await this.offerService.find();
+  public async index(req: Request, res: Response): Promise<void> {
+    const limit: number | undefined = isNaN(Number(req.query?.limit as string)) ? undefined : Number(req.query.limit);
+
+    const offers = await this.offerService.find(undefined, limit, undefined, undefined);
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
@@ -118,5 +131,10 @@ export class OfferController extends BaseController {
   public async getComments({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
     const comments = await this.commentService.findByOfferId(params.offerId);
     this.ok(res, fillDTO(CommentRdo, comments));
+  }
+
+  public async getPremium({ params }: Request<ParamCityName>, res: Response): Promise<void> {
+    const offers = await this.offerService.findPremiumByCity(params.city);
+    this.ok(res, fillDTO(OfferRdo, offers));
   }
 }

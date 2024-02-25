@@ -32,16 +32,17 @@ export class DefaultOfferService implements IOfferService {
 
   public async find(
     userId?: string,
-    limit: number = DEFAULT_OFFER_VALUE.OFFER_COUNT,
+    limit?: number,
     sort: Record<string, SortType> = { date: SortType.Down },
     isFavoriteOnly: boolean = false,
   ): Promise<DocumentType<OfferEntity>[]> {
+    const count = limit === null || limit === undefined ? DEFAULT_OFFER_VALUE.OFFER_COUNT : limit;
     return await this.offerModel
       .aggregate([
         ...getOfferAggregation(userId),
         isFavoriteOnly ? { $match: { favorite: true } } : { $match: {} },
         { $sort: sort },
-        { $limit: limit },
+        { $limit: count },
       ])
       .exec();
   }
@@ -53,10 +54,11 @@ export class DefaultOfferService implements IOfferService {
       .exec();
   }
 
-  public async findPremiumByCity(city: string, isPremium: boolean = true): Promise<DocumentType<OfferEntity>[]> {
+  public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
     const limit = DEFAULT_OFFER_VALUE.PREMIUM_COUNT;
     return this.offerModel
-      .find({ city, premium: isPremium }, {}, { limit })
+      .find({ city, premium: true }, {}, { limit })
+      .sort({ date: SortType.Down })
       .populate(['userId'])
       .exec();
   }

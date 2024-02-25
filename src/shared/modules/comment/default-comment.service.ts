@@ -24,8 +24,8 @@ export class DefaultCommentService implements ICommentService {
   public async findByOfferId(offerId: string, count?: number): Promise<DocumentType<CommentEntity>[]> {
     const limit = !count || count > DEFAULT_COMMENT_COUNT ? DEFAULT_COMMENT_COUNT : count;
     return this.commentModel
-      .find({ offers: offerId }, {}, { limit })
-      .Sort({ createAt: SortType.Down })
+      .find({ offerId: offerId }, {}, { limit })
+      .sort({ createAt: SortType.Down })
       .populate(['userId', 'offerId'])
       .exec();
   }

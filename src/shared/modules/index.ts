@@ -28,6 +28,7 @@ export * from './offer/offer.entity.js';
 export * from './offer/offer.aggregation.js';
 export * from './offer/types/update-offer-request.type.js';
 export * from './offer/types/param-offer-id.type.js';
+export * from './offer/types/param-city-name.type.js';
 export * from './offer/offer.controller.js';
 export * from './comment/comment.constant.js';
 export * from './comment/dto/create-comment.dto.js';

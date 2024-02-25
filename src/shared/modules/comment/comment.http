@@ -3,14 +3,14 @@
 ## Создать комментарий
 
 POST http://localhost:4000/comments HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZDc5YmEyYzNmMWNkNTRmZjkzYmRlMSIsImVtYWlsIjoidGVzdEB0ZXN0LmlvIiwibmFtZSI6IlN2ZXRhIEl2YW5vdmEiLCJhdmF0YXJVcmwiOiJhdmF0YXIuc3ZnIiwidHlwZSI6InBybyIsImlhdCI6MTcwODYyODkyMywiZXhwIjoxNzA4ODAxNzIzfQ.wxF-O3RYlp1jZCk6RUqkLAjL2Wjh9v9hmXW1iRBQ5yA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZGE1ODNjMzMxNWU0MGY4NzMxZThjYyIsImVtYWlsIjoidGVzdEB0ZXN0LmlvIiwibmFtZSI6IlN2ZXRhIEl2YW5vdmEiLCJhdmF0YXJVcmwiOiJhdmF0YXIuc3ZnIiwidHlwZSI6InBybyIsImlhdCI6MTcwODgxMTMwNywiZXhwIjoxNzA4OTg0MTA3fQ.RD9oyQFmb4iGxy_UFko6yAVi8RGs4HxDnr79DXYYITA
 Content-Type: application/json
 
 {
-  "text": "It's a lovely room!",
-  "rating": 4,
-  "offerId": "65cd2547bb5a9353b77b8cab",
-  "userId": "628a27d729c45f2bf9f67ff2"
+  "text": "It's a lovely room too!",
+  "rating": 5,
+  "offerId": "65da65c1d20977c59206fbd2",
+  "userId": "65da583c3315e40f8731e8cc"
 }
 
 ###
