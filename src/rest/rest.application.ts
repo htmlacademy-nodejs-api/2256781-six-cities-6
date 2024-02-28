@@ -4,7 +4,7 @@ import { TConfigSchema } from '../shared/types/index.js';
 import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/index.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
-import { getMongoURI } from '../shared/helpers/index.js';
+import { getFullServerPath, getMongoURI } from '../shared/helpers/index.js';
 import { IController, IExceptionFilter } from '../shared/libs/index.js';
 import { ParseTokenMiddleware } from '../shared/libs/index.js';
 
@@ -87,6 +87,6 @@ export class RestApplication {
 
     this.logger.info('Try to init server…');
     await this.initServer();
-    this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
+    this.logger.info(`🚀 Server started on ${getFullServerPath(this.config.get('HOST'), this.config.get('PORT'))}`);
   }
 }

@@ -59,4 +59,10 @@ export const configRestSchema = convict<TConfigSchema>({
     env: 'JWT_SECRET',
     default: null
   },
+  HOST: {
+    doc: 'The host on which the service is running',
+    format: String,
+    env: 'HOST',
+    default: 'localhost'
+  },
 });
