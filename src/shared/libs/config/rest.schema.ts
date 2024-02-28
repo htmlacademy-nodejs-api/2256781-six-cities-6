@@ -65,4 +65,10 @@ export const configRestSchema = convict<TConfigSchema>({
     env: 'HOST',
     default: 'localhost'
   },
+  STATIC_DIRECTORY_PATH: {
+    doc: 'Path to directory with static resources',
+    format: String,
+    env: 'STATIC_DIRECTORY_PATH',
+    default: 'static'
+  },
 });
