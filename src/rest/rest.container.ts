@@ -11,6 +11,7 @@ import {
   MongoDatabaseClient,
   PinoLogger,
   ValidationExceptionFilter,
+  PathTransformer,
 } from '../shared/libs/index.js';
 import { TConfigSchema } from '../shared/types/index.js';
 import { createAuthContainer, createOfferContainer, createUserContainer } from '../shared/modules/index.js';
@@ -27,6 +28,7 @@ function createRestApplicationContainer() {
   restApplicationContainer.bind<IExceptionFilter>(Component.ExceptionFilter).to(AppExceptionFilter).inSingletonScope();
   restApplicationContainer.bind<IExceptionFilter>(Component.HttpExceptionFilter).to(HttpErrorExceptionFilter).inSingletonScope();
   restApplicationContainer.bind<IExceptionFilter>(Component.ValidationExceptionFilter).to(ValidationExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<PathTransformer>(Component.PathTransformer).to(PathTransformer).inSingletonScope();
 
   return restApplicationContainer;
 }

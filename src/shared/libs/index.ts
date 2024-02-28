@@ -35,3 +35,5 @@ export * from './rest/middleware/parse-token.middleware.js';
 export * from './rest/middleware/private-route.middleware.js';
 export * from './rest/types/validation-error-field.type.js';
 export * from './rest/types/application-error.enum.js';
+export * from './rest/transform/path-transformer.constant.js';
+export * from './rest/transform/path-transformer.js';
