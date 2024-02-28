@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { TRequestBody, TRequestParams } from '../../libs/index.js';
-import { CreateUserDto } from '../index.js';
+import { TRequestBody, TRequestParams } from '../../../libs/index.js';
+import { CreateUserDto } from '../../index.js';
 
 export type TCreateUserRequest = Request<TRequestParams, TRequestBody, CreateUserDto>;

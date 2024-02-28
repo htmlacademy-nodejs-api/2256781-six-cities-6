@@ -90,7 +90,7 @@ paths:
                 $ref: '#/components/schemas/userAuth'
         "400":
           description: Неверный логин или пароль.
-        "403":
+        "401":
           description: Получить информацию о пользователе может только владелец аккаунта.
 
   /users/{userId}/avatar:
@@ -114,6 +114,45 @@ paths:
           description: Аватар успешно загружен.
         "400":
           description: Ошибка загрузки аватара.
+
+  /users/favorites:
+    get:
+      tags:
+        - users
+        - offers
+      summary: Получение избранных предложений по аренде по конкретному пользователю
+      description: Получает список избранных предложений пользователя.
+
+      responses:
+        "200":
+          description: Список избранных предложений.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/offerPreview'
+        "401":
+          description: Ресурс доступен только авторизованным клиентам.
+    put:
+      tags:
+        - users
+        - offers
+      summary: Добавление/удаление избранных предложений пользователя
+      description: Изменяет список избранных предложений пользователя.
+
+      requestBody:
+        description: Данные для редактирования предложения по аренде.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/favorite'
+
+      responses:
+        "204":
+          description: Статус предложения Избранное успешно изменён.
+        "401":
+          description: Изменять статус может только авторизованный пользователь.
 
   /offers:
     get:
@@ -203,12 +242,12 @@ paths:
         "403":
           description: Нет прав для удаления этого предложения.
 
-  /offers/premium:
+  /offers/{city}/premium:
     get:
       tags:
         - offers
       summary: Получение премиальных предложений по аренде
-      description: Получает список премиальных предложений. Сервис возвращает не больше 3 предложений с флагом «Premium»
+      description: Получает список премиальных предложений. Сервис возвращает не больше 3 предложений с флагом «Premium» по указанному городу
 
       responses:
         "200":
@@ -219,73 +258,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/offerPreview'
-
-  /offers/favorites:
-    get:
-      tags:
-        - offers
-      summary: Получение избранных предложений по аренде
-      description: Получает список избранных предложений.
-
-      responses:
-        "200":
-          description: Список избранных предложений.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/offerPreview'
-        "403":
-          description: Ресурс доступен только авторизованным клиентам.
-
-  /offers/favorites/{offerId}:
-    post:
-      tags:
-        - offers
-      summary: Добавление предложения в Избранное
-      description: Изменяет статус Избранное предложения.
-
-      requestBody:
-        description: Данные для редактирования предложения по аренде.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                offerId:
-                  type: string
-                  example: 6329c3d6a04ab1061c6425ea
-        required: true
-
-      responses:
-        "204":
-          description: Статус предложения Избранное успешно изменён.
-        "403":
-          description: Изменять статус может только авторизованный пользователь.
-    delete:
-      tags:
-        - offers
-      summary: Удаление предложения из Избранного
-      description: Изменяет статус Избранное предложения.
-
-      requestBody:
-        description: Данные для редактирования предложения по аренде.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                offerId:
-                  type: string
-                  example: 6329c3d6a04ab1061c6425ea
-        required: true
-
-      responses:
-        "200":
-          description: Предложение по аренде успешно удалено из Избранного.
-        "403":
-          description: Изменять статус может только авторизованный пользователь.
 
   /offers/{offerId}/comments:
     get:
@@ -370,7 +342,7 @@ components:
       properties:
         token:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 65cd2547bb5a9353b77b8c97
         email:
           type: string
           example: middle@test.io
@@ -379,7 +351,7 @@ components:
       properties:
         id:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 65cd2547bb5a9353b77b8c97
         avatar:
           type: string
           example: https://14.design.htmlacademy.pro/static/avatar/1.jpg
@@ -388,7 +360,7 @@ components:
       properties:
         id:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 65cd2547bb5a9353b77b8c97
         date:
           type: string
           example: 2024-02-10T00:12:43.283Z
@@ -451,7 +423,7 @@ components:
       properties:
         id:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 65cd2547bb5a9353b77b8c97
         date:
           type: string
           example: 2024-02-10T00:12:43.283Z
@@ -496,7 +468,7 @@ components:
       properties:
         id:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 65cd2547bb5a9353b77b8c97
         name:
           type: string
           example: Svetlana Ivanova
@@ -511,7 +483,7 @@ components:
       properties:
         id:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 65cd2547bb5a9353b77b8c97
         text:
           type: string
           example:
@@ -524,3 +496,12 @@ components:
         author:
           type: object
           $ref: '#/components/schemas/author'
+    favorite:
+      type: object
+      properties:
+        offerId:
+          type: string
+          example: 65cd2547bb5a9353b77b8c97
+        isFavorite:
+          type: boolean
+          example: true

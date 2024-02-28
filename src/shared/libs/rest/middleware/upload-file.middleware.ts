@@ -5,6 +5,12 @@ import { IMiddleware } from '../../index.js';
 import { nanoid } from 'nanoid';
 
 export class UploadFileMiddleware implements IMiddleware {
+  private readonly mimetype = {
+    'image/png': 'png',
+    'image/jpeg': 'jpeg',
+    'image/jpg': 'jpg'
+  };
+
   constructor(
     private uploadDirectory: string,
     private fieldName: string,
@@ -20,7 +26,17 @@ export class UploadFileMiddleware implements IMiddleware {
       }
     });
 
-    const uploadSingleFileMiddleware = multer({ storage }).single(this.fieldName);
+    const uploadSingleFileMiddleware = multer({
+      limits: { fileSize: 500000 },
+      storage,
+      fileFilter: (_req, file, cb) => {
+        const isValid = !!this.mimetype[file.mimetype as keyof typeof this.mimetype];
+        if(!isValid) {
+          return cb(new Error('Invalid mime type!'));
+        }
+        cb(null, isValid);
+      }
+    }).single(this.fieldName);
 
     uploadSingleFileMiddleware(req, res, next);
   }

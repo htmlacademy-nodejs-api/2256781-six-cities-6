@@ -32,14 +32,17 @@ export class DefaultOfferService implements IOfferService {
 
   public async find(
     userId?: string,
-    limit: number = DEFAULT_OFFER_VALUE.OFFER_COUNT,
-    sort: Record<string, SortType> = { date: SortType.Down }
+    limit?: number,
+    sort: Record<string, SortType> = { date: SortType.Down },
+    isFavoriteOnly: boolean = false,
   ): Promise<DocumentType<OfferEntity>[]> {
-    return await this.offerModel
+    const count = limit === null || limit === undefined ? DEFAULT_OFFER_VALUE.OFFER_COUNT : limit;
+    return this.offerModel
       .aggregate([
-        { $sort: sort },
-        { $limit: limit },
         ...getOfferAggregation(userId),
+        isFavoriteOnly ? { $match: { favorite: true } } : { $match: {} },
+        { $sort: sort },
+        { $limit: count },
       ])
       .exec();
   }
@@ -51,17 +54,11 @@ export class DefaultOfferService implements IOfferService {
       .exec();
   }
 
-  public async findPremiumByCity(city: string, isPremium: boolean = true): Promise<DocumentType<OfferEntity>[]> {
+  public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
     const limit = DEFAULT_OFFER_VALUE.PREMIUM_COUNT;
     return this.offerModel
-      .find({ city, premium: isPremium }, {}, { limit })
-      .populate(['userId'])
-      .exec();
-  }
-
-  public async findFavorites(userId: string, isFavorite: boolean = true): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
-      .find({ userId, favorite: isFavorite })
+      .find({ city, premium: true }, {}, { limit })
+      .sort({ date: SortType.Down })
       .populate(['userId'])
       .exec();
   }
@@ -82,7 +79,7 @@ export class DefaultOfferService implements IOfferService {
   }
 
   public async exists(documentId: string): Promise<boolean> {
-    return (await this.offerModel
+    return (this.offerModel
       .exists({ _id: documentId })) !== null;
   }
 }
