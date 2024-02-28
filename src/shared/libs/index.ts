@@ -33,3 +33,4 @@ export * from './rest/middleware/upload-file.middleware.js';
 export * from './rest/middleware/parse-token.middleware.js';
 export * from './rest/middleware/private-route.middleware.js';
 export * from './rest/types/validation-error-field.type.js';
+export * from './rest/types/application-error.enum.js';

@@ -1,6 +1,6 @@
 import { ClassConstructor as TClassConstructor, plainToInstance } from 'class-transformer';
 import { ValidationError } from 'class-validator';
-import { TValidationErrorFields } from '../libs/index.js';
+import { ApplicationError, TValidationErrorFields } from '../libs/index.js';
 
 export const generateRandomValue = (min: number, max: number, numAfterDigit = 0) =>
   Number(((Math.random() * (max - min)) + min).toFixed(numAfterDigit));
@@ -20,8 +20,10 @@ export const getErrorMessage = (error: unknown): string => error instanceof Erro
 export const fillDTO = <T, V>(someDto: TClassConstructor<T>, plainObject: V) =>
   plainToInstance(someDto, plainObject, { excludeExtraneousValues: true });
 
-export const createErrorObject = (message: string) => ({
-  error: message,
+export const createErrorObject = (errorType: ApplicationError, error: string, details: TValidationErrorFields = []) => ({
+  errorType,
+  error,
+  details
 });
 
 export const reduceValidationErrors = (errors: ValidationError[]): TValidationErrorFields =>
