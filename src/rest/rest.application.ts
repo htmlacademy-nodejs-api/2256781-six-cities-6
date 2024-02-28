@@ -7,7 +7,7 @@ import { IDatabaseClient } from '../shared/libs/index.js';
 import { getFullServerPath, getMongoURI } from '../shared/helpers/index.js';
 import { IController, IExceptionFilter } from '../shared/libs/index.js';
 import { ParseTokenMiddleware } from '../shared/libs/index.js';
-
+import { STATIC_FILES_ROUTE, STATIC_UPLOAD_ROUTE } from './index.js';
 @injectable()
 export class RestApplication {
   protected readonly server: Express = express();
@@ -54,11 +54,11 @@ export class RestApplication {
 
     this.server.use(express.json());
     this.server.use(
-      '/uploads',
+      STATIC_UPLOAD_ROUTE,
       express.static(this.config.get('UPLOAD_DIRECTORY'))
     );
     this.server.use(
-      '/static',
+      STATIC_FILES_ROUTE,
       express.static(this.config.get('STATIC_DIRECTORY_PATH'))
     );
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
