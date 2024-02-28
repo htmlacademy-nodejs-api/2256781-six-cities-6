@@ -10,10 +10,12 @@ import {
   EnvConfig,
   MongoDatabaseClient,
   PinoLogger,
+  ValidationExceptionFilter,
 } from '../shared/libs/index.js';
 import { TConfigSchema } from '../shared/types/index.js';
 import { createAuthContainer, createOfferContainer, createUserContainer } from '../shared/modules/index.js';
 import { createCommentContainer } from '../shared/modules/comment/comment-container.js';
+import { HttpErrorExceptionFilter } from '../shared/libs/rest/exception-filter/http-error.exception-filter.js';
 
 function createRestApplicationContainer() {
   const restApplicationContainer = new Container();
@@ -23,6 +25,8 @@ function createRestApplicationContainer() {
   restApplicationContainer.bind<IConfig<TConfigSchema>>(Component.Config).to(EnvConfig).inSingletonScope();
   restApplicationContainer.bind<IDatabaseClient>(Component.DatabaseClient).to(MongoDatabaseClient).inSingletonScope();
   restApplicationContainer.bind<IExceptionFilter>(Component.ExceptionFilter).to(AppExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<IExceptionFilter>(Component.HttpExceptionFilter).to(HttpErrorExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<IExceptionFilter>(Component.ValidationExceptionFilter).to(ValidationExceptionFilter).inSingletonScope();
 
   return restApplicationContainer;
 }
