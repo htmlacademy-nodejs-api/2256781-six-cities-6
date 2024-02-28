@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';jose
+import { NextFunction, Request, Response } from 'express';
 import { jwtVerify } from 'jose';
 import { StatusCodes } from 'http-status-codes';
 import { createSecretKey } from 'node:crypto';
