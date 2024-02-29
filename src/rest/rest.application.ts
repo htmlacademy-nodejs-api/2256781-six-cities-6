@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import express, { Express } from 'express';
+import cors from 'cors';
 import { TConfigSchema } from '../shared/types/index.js';
 import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/index.js';
@@ -62,6 +63,7 @@ export class RestApplication {
       express.static(this.config.get('STATIC_DIRECTORY_PATH'))
     );
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
+    this.server.use(cors());
   }
 
   private async initControllers() {
