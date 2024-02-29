@@ -17,6 +17,7 @@ export * from './database-client/mongo.database-client.js';
 export * from './database-client/database.constant.js';
 export * from './rest/types/http-method.enum.js';
 export * from './rest/types/route.interface.js';
+export * from './rest/controller/base-controller.constant.js';
 export * from './rest/controller/controller.interface.js';
 export * from './rest/controller/base-controller.abstract.js';
 export * from './rest/exception-filter/exception-filter.interface.js';

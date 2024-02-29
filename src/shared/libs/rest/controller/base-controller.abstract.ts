@@ -1,22 +1,22 @@
 import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { Response, Router } from 'express';
-import { IController, PathTransformer } from '../../index.js';
+import asyncHandler from 'express-async-handler';
+
+import { DEFAULT_CONTENT_TYPE, IController, PathTransformer } from '../../index.js';
 import { ILogger } from '../../index.js';
 import { IRoute } from '../../index.js';
-import asyncHandler from 'express-async-handler';
 import { Component } from '../../../types/index.js';
-
-const DEFAULT_CONTENT_TYPE = 'application/json';
 
 @injectable()
 export abstract class BaseController implements IController {
   private readonly _router: Router;
 
+  @inject(Component.PathTransformer)
+  private pathTransformer!: PathTransformer;
+
   constructor(
-    protected readonly logger: ILogger,
-    @inject(Component.PathTransformer)
-    private pathTransformer: PathTransformer
+    protected readonly logger: ILogger
   ) {
     this._router = Router();
   }
