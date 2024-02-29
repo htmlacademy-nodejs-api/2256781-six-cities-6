@@ -14,6 +14,7 @@ export * from './user/types/create-user-request.type.js';
 export * from './user/user.controller.js';
 export * from './user/user-service.interface.js';
 export * from './user/rdo/logged-user.rdo.js';
+export * from './user/rdo/upload-user-avatar.rdo.js';
 export * from './offer/offer.constant.js';
 export * from './offer/dto/location.dto.js';
 export * from './offer/dto/create-offer.dto.js';
