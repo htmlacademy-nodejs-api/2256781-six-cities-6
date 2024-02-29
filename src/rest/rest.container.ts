@@ -15,8 +15,8 @@ import {
 } from '../shared/libs/index.js';
 import { TConfigSchema } from '../shared/types/index.js';
 import { createAuthContainer, createOfferContainer, createUserContainer } from '../shared/modules/index.js';
-import { createCommentContainer } from '../shared/modules/comment/comment-container.js';
-import { HttpErrorExceptionFilter } from '../shared/libs/rest/exception-filter/http-error.exception-filter.js';
+import { createCommentContainer } from '../shared/modules/index.js';
+import { HttpErrorExceptionFilter } from '../shared/libs/index.js';
 
 function createRestApplicationContainer() {
   const restApplicationContainer = new Container();
