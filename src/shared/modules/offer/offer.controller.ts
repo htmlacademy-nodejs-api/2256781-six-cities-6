@@ -10,7 +10,7 @@ import {
 import { ILogger } from '../../libs/index.js';
 import { Component, HttpMethod } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { IOfferService, ParamCityName } from '../index.js';
+import { IOfferService, OfferPreviewRdo, ParamCityName } from '../index.js';
 import { TCreateOfferRequest } from '../index.js';
 import {
   CommentRdo,
@@ -41,6 +41,13 @@ export class OfferController extends BaseController {
         new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateOfferDto)
       ]
+    });
+
+    this.addRoute({
+      path: '/favorites',
+      method: HttpMethod.Get,
+      handler: this.getFavorites,
+      middlewares: [new PrivateRouteMiddleware()],
     });
 
     this.addRoute({
@@ -96,7 +103,7 @@ export class OfferController extends BaseController {
   public async index(req: Request, res: Response): Promise<void> {
     const limit: number | undefined = isNaN(Number(req.query?.limit as string)) ? undefined : Number(req.query.limit);
 
-    const offers = await this.offerService.find(undefined, limit, undefined, undefined);
+    const offers = await this.offerService.find({ limit });
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
@@ -133,8 +140,16 @@ export class OfferController extends BaseController {
     this.ok(res, fillDTO(CommentRdo, comments));
   }
 
-  public async getPremium({ params }: Request<ParamCityName>, res: Response): Promise<void> {
-    const offers = await this.offerService.findPremiumByCity(params.city);
+  public async getPremium({ params: { city } }: Request<ParamCityName>, res: Response): Promise<void> {
+    const offers = await this.offerService.findPremiumByCity(city);
     this.ok(res, fillDTO(OfferRdo, offers));
+  }
+
+  public async getFavorites(
+    { tokenPayload: { id: userId } }: Request,
+    res: Response,
+  ): Promise<void> {
+    const offers = await this.offerService.find({ userId, isFavoriteOnly: true });
+    this.ok(res, fillDTO(OfferPreviewRdo, offers));
   }
 }

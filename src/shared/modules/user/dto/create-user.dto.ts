@@ -21,7 +21,4 @@ export class CreateUserDto {
   @IsString()
   @Length(USER_DTO_SETTINGS.PASSWORD_MIN, USER_DTO_SETTINGS.PASSWORD_MAX)
   public password!: string;
-
-  @IsString()
-  public avatarUrl?: string;
 }

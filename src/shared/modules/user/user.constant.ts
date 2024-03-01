@@ -6,4 +6,4 @@ export const USER_DTO_SETTINGS = {
   TYPE_MSG: 'The type field must be any of: pro, обычный',
 } as const;
 
-export const DEFAULT_AVATAR = 'avatar.svg';
+export const DEFAULT_AVATAR_FILE_NAME = 'default-avatar.png';

@@ -10,10 +10,13 @@ import {
   EnvConfig,
   MongoDatabaseClient,
   PinoLogger,
+  ValidationExceptionFilter,
+  PathTransformer,
 } from '../shared/libs/index.js';
 import { TConfigSchema } from '../shared/types/index.js';
 import { createAuthContainer, createOfferContainer, createUserContainer } from '../shared/modules/index.js';
-import { createCommentContainer } from '../shared/modules/comment/comment-container.js';
+import { createCommentContainer } from '../shared/modules/index.js';
+import { HttpErrorExceptionFilter } from '../shared/libs/index.js';
 
 function createRestApplicationContainer() {
   const restApplicationContainer = new Container();
@@ -23,6 +26,9 @@ function createRestApplicationContainer() {
   restApplicationContainer.bind<IConfig<TConfigSchema>>(Component.Config).to(EnvConfig).inSingletonScope();
   restApplicationContainer.bind<IDatabaseClient>(Component.DatabaseClient).to(MongoDatabaseClient).inSingletonScope();
   restApplicationContainer.bind<IExceptionFilter>(Component.ExceptionFilter).to(AppExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<IExceptionFilter>(Component.HttpExceptionFilter).to(HttpErrorExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<IExceptionFilter>(Component.ValidationExceptionFilter).to(ValidationExceptionFilter).inSingletonScope();
+  restApplicationContainer.bind<PathTransformer>(Component.PathTransformer).to(PathTransformer).inSingletonScope();
 
   return restApplicationContainer;
 }

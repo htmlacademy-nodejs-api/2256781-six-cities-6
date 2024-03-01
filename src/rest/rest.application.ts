@@ -1,13 +1,14 @@
 import { inject, injectable } from 'inversify';
 import express, { Express } from 'express';
+import cors from 'cors';
 import { TConfigSchema } from '../shared/types/index.js';
 import { IConfig, ILogger } from '../shared/libs/index.js';
 import { Component } from '../shared/types/index.js';
 import { IDatabaseClient } from '../shared/libs/index.js';
-import { getMongoURI } from '../shared/helpers/index.js';
+import { getFullServerPath, getMongoURI } from '../shared/helpers/index.js';
 import { IController, IExceptionFilter } from '../shared/libs/index.js';
 import { ParseTokenMiddleware } from '../shared/libs/index.js';
-
+import { STATIC_FILES_ROUTE, STATIC_UPLOAD_ROUTE } from './index.js';
 @injectable()
 export class RestApplication {
   protected readonly server: Express = express();
@@ -21,10 +22,14 @@ export class RestApplication {
     @inject(Component.OfferController) private readonly offerController: IController,
     @inject(Component.CommentController) private readonly commentController: IController,
     @inject(Component.AuthExceptionFilter) private readonly authExceptionFilter: IExceptionFilter,
+    @inject(Component.HttpExceptionFilter) private readonly httpExceptionFilter: IExceptionFilter,
+    @inject(Component.ValidationExceptionFilter) private readonly validationExceptionFilter: IExceptionFilter,
   ) { }
 
   private async initExceptionFilters() {
     this.server.use(this.authExceptionFilter.catch.bind(this.authExceptionFilter));
+    this.server.use(this.validationExceptionFilter.catch.bind(this.validationExceptionFilter));
+    this.server.use(this.httpExceptionFilter.catch.bind(this.httpExceptionFilter));
     this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
   }
 
@@ -50,10 +55,15 @@ export class RestApplication {
 
     this.server.use(express.json());
     this.server.use(
-      '/uploads',
+      STATIC_UPLOAD_ROUTE,
       express.static(this.config.get('UPLOAD_DIRECTORY'))
     );
+    this.server.use(
+      STATIC_FILES_ROUTE,
+      express.static(this.config.get('STATIC_DIRECTORY_PATH'))
+    );
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
+    this.server.use(cors());
   }
 
   private async initControllers() {
@@ -83,6 +93,6 @@ export class RestApplication {
 
     this.logger.info('Try to init server…');
     await this.initServer();
-    this.logger.info(`🚀 Server started on http://localhost:${this.config.get('PORT')}`);
+    this.logger.info(`🚀 Server started on ${getFullServerPath(this.config.get('HOST'), this.config.get('PORT'))}`);
   }
 }

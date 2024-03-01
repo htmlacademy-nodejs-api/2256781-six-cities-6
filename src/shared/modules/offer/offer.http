@@ -84,3 +84,10 @@ GET http://localhost:4000/offers/65da65c1d20977c59206fbd2/comments HTTP/1.1
 ## Список премиальные предложений для города (возвращает не больше 3 предложений). Доступен авторизованным и анонимным клиентам
 
  GET http://localhost:4000/offers/Brussels/premium HTTP/1.1
+
+###
+
+## Получить избранные предложения пользователя
+
+GET http://localhost:4000/offers/favorites HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZGE1ODNjMzMxNWU0MGY4NzMxZThjYyIsImVtYWlsIjoidGVzdEB0ZXN0LmlvIiwibmFtZSI6IlN2ZXRhIEl2YW5vdmEiLCJhdmF0YXJVcmwiOiJkZWZhdWx0LWF2YXRhci5wbmciLCJ0eXBlIjoicHJvIiwiaWF0IjoxNzA5MzAwNzI3LCJleHAiOjE3MDk0NzM1Mjd9.cpIMNHQD3B3jbQ1-XQcgOGylgTRMdx-HR5q3b4NrmmU

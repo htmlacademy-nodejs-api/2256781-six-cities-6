@@ -59,4 +59,22 @@ export const configRestSchema = convict<TConfigSchema>({
     env: 'JWT_SECRET',
     default: null
   },
+  HOST: {
+    doc: 'The host on which the service is running',
+    format: String,
+    env: 'HOST',
+    default: null
+  },
+  STATIC_DIRECTORY_PATH: {
+    doc: 'Path to directory with static resources',
+    format: String,
+    env: 'STATIC_DIRECTORY_PATH',
+    default: null
+  },
+  JWT_EXPIRED: {
+    doc: 'The lifespan of the user token',
+    format: String,
+    env: 'JWT_EXPIRED',
+    default: null
+  },
 });

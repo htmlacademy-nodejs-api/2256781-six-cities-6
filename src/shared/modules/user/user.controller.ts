@@ -17,9 +17,9 @@ import {
   IAuthService,
   IOfferService,
   LoggedUserRdo,
-  OfferPreviewRdo,
   TCreateUserRequest,
   TFavoriteUserRequest,
+  UploadUserAvatarRdo,
 } from '../index.js';
 import { IUserService } from '../index.js';
 import { IConfig } from '../../libs/index.js';
@@ -47,12 +47,14 @@ export class UserController extends BaseController {
       handler: this.create,
       middlewares: [new ValidateDtoMiddleware(CreateUserDto)]
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Post,
       handler: this.login,
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
     });
+
     this.addRoute({
       path: '/:userId/avatar',
       method: HttpMethod.Post,
@@ -63,17 +65,13 @@ export class UserController extends BaseController {
         new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
       ]
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Get,
       handler: this.checkAuthenticate,
     });
-    this.addRoute({
-      path: '/favorites',
-      method: HttpMethod.Get,
-      handler: this.getFavorites,
-      middlewares: [new PrivateRouteMiddleware()],
-    });
+
     this.addRoute({
       path: '/favorites',
       method: HttpMethod.Put,
@@ -109,17 +107,15 @@ export class UserController extends BaseController {
   ): Promise<void> {
     const user = await this.authService.verify(body);
     const token = await this.authService.authenticate(user);
-    const responseData = fillDTO(LoggedUserRdo, {
-      email: user.email,
-      token,
-    });
-    this.ok(res, responseData);
+    const responseData = fillDTO(LoggedUserRdo, user);
+    this.ok(res, Object.assign(responseData, { token }));
   }
 
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path
-    });
+  public async uploadAvatar({ params, file }: Request, res: Response) {
+    const { userId } = params;
+    const uploadFile = { avatarUrl: file?.filename };
+    await this.userService.updateById(userId, uploadFile);
+    this.created(res, fillDTO(UploadUserAvatarRdo, uploadFile));
   }
 
   public async checkAuthenticate({ tokenPayload: { email } }: Request, res: Response) {
@@ -134,14 +130,6 @@ export class UserController extends BaseController {
     }
 
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
-  }
-
-  public async getFavorites(
-    { tokenPayload: { id: userId } }: Request,
-    res: Response,
-  ): Promise<void> {
-    const offers = await this.offerService.find(userId, undefined, undefined, true);
-    this.ok(res, fillDTO(OfferPreviewRdo, offers));
   }
 
   public async updateFavorites(
