@@ -37,7 +37,7 @@ export class DefaultOfferService implements IOfferService {
     sort = { date: SortType.Down },
     isFavoriteOnly = false
   }: TSearchParameters): Promise<DocumentType<OfferEntity>[]> {
-    const count = limit === null || limit === undefined ? DEFAULT_OFFER_VALUE.OFFER_COUNT : limit;
+    const count = !limit ? DEFAULT_OFFER_VALUE.OFFER_COUNT : limit;
     return this.offerModel
       .aggregate([
         ...getOfferAggregation(userId),
