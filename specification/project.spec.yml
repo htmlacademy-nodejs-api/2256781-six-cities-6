@@ -116,24 +116,6 @@ paths:
           description: Ошибка загрузки аватара.
 
   /users/favorites:
-    get:
-      tags:
-        - users
-        - offers
-      summary: Получение избранных предложений по аренде по конкретному пользователю
-      description: Получает список избранных предложений пользователя.
-
-      responses:
-        "200":
-          description: Список избранных предложений.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/offerPreview'
-        "401":
-          description: Ресурс доступен только авторизованным клиентам.
     put:
       tags:
         - users
@@ -275,6 +257,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/comment'
+
+  /offers/favorites:
+    get:
+      tags:
+        - users
+        - offers
+      summary: Получение избранных предложений по аренде по конкретному пользователю
+      description: Получает список избранных предложений пользователя.
+
+      responses:
+        "200":
+          description: Список избранных предложений.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/offerPreview'
+        "401":
+          description: Ресурс доступен только авторизованным клиентам.
 
   /comments:
     post:

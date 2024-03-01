@@ -71,4 +71,10 @@ export const configRestSchema = convict<TConfigSchema>({
     env: 'STATIC_DIRECTORY_PATH',
     default: 'static'
   },
+  JWT_EXPIRED: {
+    doc: 'The lifespan of the user token',
+    format: String,
+    env: 'JWT_EXPIRED',
+    default: '2d'
+  },
 });

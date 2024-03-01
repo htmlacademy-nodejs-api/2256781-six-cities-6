@@ -11,6 +11,7 @@ import {
 } from '../index.js';
 import { ILogger } from '../../libs/index.js';
 import { SortType } from '../../types/index.js';
+import { TSearchParameters } from './types/search-parameter.type.js';
 
 @injectable()
 export class DefaultOfferService implements IOfferService {
@@ -30,12 +31,12 @@ export class DefaultOfferService implements IOfferService {
     return this.offerModel.findById(offerId).exec();
   }
 
-  public async find(
-    userId?: string,
-    limit?: number,
-    sort: Record<string, SortType> = { date: SortType.Down },
-    isFavoriteOnly: boolean = false,
-  ): Promise<DocumentType<OfferEntity>[]> {
+  public async find({
+    userId,
+    limit,
+    sort = { date: SortType.Down },
+    isFavoriteOnly = false
+  }: TSearchParameters): Promise<DocumentType<OfferEntity>[]> {
     const count = limit === null || limit === undefined ? DEFAULT_OFFER_VALUE.OFFER_COUNT : limit;
     return this.offerModel
       .aggregate([

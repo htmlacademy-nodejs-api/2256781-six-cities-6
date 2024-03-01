@@ -49,20 +49,13 @@ Content-Type: image/png
 
 ###
 
-## Получить избранное пользователя
-
-GET http://localhost:4000/users/favorites HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZDc5YmEyYzNmMWNkNTRmZjkzYmRlMSIsImVtYWlsIjoidGVzdEB0ZXN0LmlvIiwibmFtZSI6IlN2ZXRhIEl2YW5vdmEiLCJhdmF0YXJVcmwiOiJhdmF0YXIuc3ZnIiwidHlwZSI6InBybyIsImlhdCI6MTcwODYyODkyMywiZXhwIjoxNzA4ODAxNzIzfQ.wxF-O3RYlp1jZCk6RUqkLAjL2Wjh9v9hmXW1iRBQ5yA
-
-###
-
 ## Изменить избранное пользователя
 
 PUT http://localhost:4000/users/favorites HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZDc5YmEyYzNmMWNkNTRmZjkzYmRlMSIsImVtYWlsIjoidGVzdEB0ZXN0LmlvIiwibmFtZSI6IlN2ZXRhIEl2YW5vdmEiLCJhdmF0YXJVcmwiOiJhdmF0YXIuc3ZnIiwidHlwZSI6InBybyIsImlhdCI6MTcwODYyODkyMywiZXhwIjoxNzA4ODAxNzIzfQ.wxF-O3RYlp1jZCk6RUqkLAjL2Wjh9v9hmXW1iRBQ5yA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZGE1ODNjMzMxNWU0MGY4NzMxZThjYyIsImVtYWlsIjoidGVzdEB0ZXN0LmlvIiwibmFtZSI6IlN2ZXRhIEl2YW5vdmEiLCJhdmF0YXJVcmwiOiJkZWZhdWx0LWF2YXRhci5wbmciLCJ0eXBlIjoicHJvIiwiaWF0IjoxNzA5MzAwNzI3LCJleHAiOjE3MDk0NzM1Mjd9.cpIMNHQD3B3jbQ1-XQcgOGylgTRMdx-HR5q3b4NrmmU
 Content-Type: application/json
 
 {
-  "offerId": "65d3608de93d1cea6b364055",
+  "offerId": "65da65c1d20977c59206fbd2",
   "isFavorite": true
 }

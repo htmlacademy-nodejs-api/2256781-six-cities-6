@@ -12,7 +12,7 @@ import {
 import { TTokenPayload } from '../index.js';
 import { IConfig } from '../../libs/index.js';
 import { UserNotFoundException, UserPasswordException } from '../index.js';
-import { JWT_SETTINGS } from '../index.js';
+import { JWT_ALGORITHM } from '../index.js';
 import { TConfigSchema } from '../../types/index.js';
 
 @injectable()
@@ -36,9 +36,9 @@ export class DefaultAuthService implements IAuthService {
 
     this.logger.info(`Create token for ${user.email}`);
     return new SignJWT(tokenPayload)
-      .setProtectedHeader({ alg: JWT_SETTINGS.ALGORITHM })
+      .setProtectedHeader({ alg: JWT_ALGORITHM })
       .setIssuedAt()
-      .setExpirationTime(JWT_SETTINGS.EXPIRED)
+      .setExpirationTime(this.config.get('JWT_EXPIRED'))
       .sign(secretKey);
   }
 

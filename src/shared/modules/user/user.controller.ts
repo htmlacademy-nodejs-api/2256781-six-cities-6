@@ -17,7 +17,6 @@ import {
   IAuthService,
   IOfferService,
   LoggedUserRdo,
-  OfferPreviewRdo,
   TCreateUserRequest,
   TFavoriteUserRequest,
   UploadUserAvatarRdo,
@@ -48,12 +47,14 @@ export class UserController extends BaseController {
       handler: this.create,
       middlewares: [new ValidateDtoMiddleware(CreateUserDto)]
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Post,
       handler: this.login,
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
     });
+
     this.addRoute({
       path: '/:userId/avatar',
       method: HttpMethod.Post,
@@ -64,17 +65,13 @@ export class UserController extends BaseController {
         new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
       ]
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Get,
       handler: this.checkAuthenticate,
     });
-    this.addRoute({
-      path: '/favorites',
-      method: HttpMethod.Get,
-      handler: this.getFavorites,
-      middlewares: [new PrivateRouteMiddleware()],
-    });
+
     this.addRoute({
       path: '/favorites',
       method: HttpMethod.Put,
@@ -133,14 +130,6 @@ export class UserController extends BaseController {
     }
 
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
-  }
-
-  public async getFavorites(
-    { tokenPayload: { id: userId } }: Request,
-    res: Response,
-  ): Promise<void> {
-    const offers = await this.offerService.find(userId, undefined, undefined, true);
-    this.ok(res, fillDTO(OfferPreviewRdo, offers));
   }
 
   public async updateFavorites(
