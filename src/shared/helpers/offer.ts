@@ -7,6 +7,7 @@ import {
   IUser,
   TLocation,
 } from '../types/index.js';
+import { CHARACTER, RADIX_TEN } from './const.js';
 
 export function convertLineOfferToObject(dataLine: string) {
   const [
@@ -28,7 +29,7 @@ export function convertLineOfferToObject(dataLine: string) {
     commentCount,
     coordinates,
     comments
-  ] = dataLine.replace('\n', '').split('\t');
+  ] = dataLine.replace(CHARACTER.LINE_FEED, CHARACTER.EMPTY).split(CHARACTER.TAB);
 
   return {
     date,
@@ -55,8 +56,8 @@ export function convertLineOfferToObject(dataLine: string) {
 export function createOffer(dataLine: string): IOffer {
   const offer = convertLineOfferToObject(dataLine);
 
-  const [name, userType, avatarUrl, email, password] = offer.host.split(';');
-  const [latitude, longitude] = offer.coordinates.split(';');
+  const [name, userType, avatarUrl, email, password] = offer.host.split(CHARACTER.SEMICOLON);
+  const [latitude, longitude] = offer.coordinates.split(CHARACTER.SEMICOLON);
 
   const user: IUser = {
     name,
@@ -77,17 +78,17 @@ export function createOffer(dataLine: string): IOffer {
     description: offer.description,
     city: offer.city as City,
     previewImage: offer.previewImage,
-    images: offer.images.split(';'),
+    images: offer.images.split(CHARACTER.SEMICOLON),
     premium: Boolean(offer.premium),
     favorite: Boolean(offer.favorite),
     rating: parseFloat(offer.rating),
     type: (offer.type as OfferType),
-    bedrooms: parseInt(offer.bedrooms, 10),
-    maxAdults: parseInt(offer.maxAdults, 10),
-    price: parseInt(offer.price, 10),
-    goods: (offer.goods.split(';') as OfferGood[]),
+    bedrooms: parseInt(offer.bedrooms, RADIX_TEN),
+    maxAdults: parseInt(offer.maxAdults, RADIX_TEN),
+    price: parseInt(offer.price, RADIX_TEN),
+    goods: (offer.goods.split(CHARACTER.SEMICOLON) as OfferGood[]),
     user,
-    commentCount: parseInt(offer.commentCount, 10),
+    commentCount: parseInt(offer.commentCount, RADIX_TEN),
     location
   } as IOffer;
 }
