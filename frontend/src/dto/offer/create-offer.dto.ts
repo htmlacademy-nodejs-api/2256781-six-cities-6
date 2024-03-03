@@ -3,7 +3,7 @@ import { CityName, Type, Location } from '../../types/types';
 export default class CreateOfferDto {
   public title!: string;
 
-  public date!: Date;
+  public date!: string;
 
   public description!: string;
 

@@ -1,4 +1,4 @@
-enum TUserType {
+export enum UserTypeDto {
   Pro = 'pro',
   Standard = 'обычный',
 }
@@ -6,7 +6,7 @@ enum TUserType {
 export default class CreateUserDto {
   public name!: string;
 
-  public type!: TUserType;
+  public type!: UserTypeDto;
 
   public email!: string;
 

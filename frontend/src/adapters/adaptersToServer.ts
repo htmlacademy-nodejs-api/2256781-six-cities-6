@@ -1,48 +1,45 @@
-// import UpdateOfferDto from '../../dto/offer/update-offer.dto';
-// import CreateUserDto from '../../dto/user/create-user.dto';
-// import { TicketCreate, TicketEdit } from '../../types/ticket';
-// import { Signup } from '../../types/user';
-// import { OfferType } from '../../const';
-// import CreateOfferDto from '../../dto/offer/create-offer.dto';
-// import { CommentPost } from '../../types/comment';
-// import CreateCommentDto from '../../dto/comment/create-comment.dto';
-// import { getTime } from '../utils';
+import { UserType } from '../const';
+import CreateCommentDto from '../dto/comment/create-comment.dto';
+import CreateOfferDto from '../dto/offer/create-offer.dto';
+import CreateUserDto, { UserTypeDto } from '../dto/user/create-user.dto';
+import { NewOffer, UserRegister } from '../types/types';
+import { Comment } from '../types/types';
+import { getTime } from '../utils';
 
-// export const adaptSignupToServer =
-//   (user: Signup): CreateUserDto => ({
-//     firstname: user.name,
-//     lastname: user.surname,
-//     email: user.email,
-//     avatarPath: ' ',
-//     password: user.password,
-//   });
+export const adaptSignupToServer =
+  (user: UserRegister): CreateUserDto => ({
+    name: user.name,
+    email: user.email,
+    password: user.password,
+    type: (user.type === UserType.Pro) ? UserTypeDto.Pro : UserTypeDto.Standard,
+  });
 
-// export const adaptEditTicketToServer =
-//   (ticket: TicketEdit): UpdateOfferDto => ({
-//     title: ticket.title,
-//     description: ticket.description,
-//     categories: ticket.categories,
-//     postDate: new Date(ticket.publishedDate),
-//     type: (ticket.type === OfferType.Buy) ? OfferType.Buy : OfferType.Sell,
-//     price: ticket.price,
-//   });
+export const adaptOfferToServer =
+  (ticket: NewOffer): CreateOfferDto => ({
+    title: ticket.title,
+    date: getTime(),
+    description: ticket.description,
+    city: ticket.city.name,
+    previewImage: '',
+    images: [],
+    premium: ticket.isPremium,
+    favorite: false,
+    type: ticket.type,
+    bedrooms: ticket.bedrooms,
+    maxAdults: ticket.maxAdults,
+    price: ticket.price,
+    goods: ticket.goods,
+    userId: '',
+    location: ticket.location,
+  });
 
-// export const adaptCreateTicketToServer =
-//   (ticket: TicketCreate): CreateOfferDto => ({
-//     title: ticket.title,
-//     description: ticket.description,
-//     categories: ticket.categories,
-//     postDate: getTime(),
-//     image: ' ',
-//     type: (ticket.type === OfferType.Buy) ? OfferType.Buy : OfferType.Sell,
-//     price: ticket.price,
-//   });
-
-// export const adaptCreateCommentToServer =
-//   (comment: CommentPost): CreateCommentDto => ({
-//     text: comment.text,
-//     offerId: comment.ticketId,
-//   });
+export const adaptCreateCommentToServer =
+  (comment: Comment): CreateCommentDto => ({
+    text: comment.comment,
+    rating: comment.rating,
+    offerId: comment.id,
+    userId: '',
+  });
 
 // export const adaptAvatarToServer =
 //   (file: string) => {
