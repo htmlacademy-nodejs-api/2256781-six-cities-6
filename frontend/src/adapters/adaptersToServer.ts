@@ -1,20 +1,17 @@
-import { UserType } from '../const';
-import CreateCommentDto from '../dto/comment/create-comment.dto';
 import CreateOfferDto from '../dto/offer/create-offer.dto';
-import CreateUserDto, { UserTypeDto } from '../dto/user/create-user.dto';
-import { NewOffer, UserRegister } from '../types/types';
-import { Comment } from '../types/types';
+import UpdateOfferDto from '../dto/offer/update-offer.dto';
+import { NewOffer, Offer } from '../types/types';
 import { getTime } from '../utils';
 
-export const adaptSignupToServer =
-  (user: UserRegister): CreateUserDto => ({
-    name: user.name,
-    email: user.email,
-    password: user.password,
-    type: (user.type === UserType.Pro) ? UserTypeDto.Pro : UserTypeDto.Standard,
-  });
+// export const adaptSignupToServer =
+//   (user: UserRegister): CreateUserDto => ({
+//     name: user.name,
+//     email: user.email,
+//     password: user.password,
+//     type: (user.type === UserType.Pro) ? UserTypeDto.Pro : UserTypeDto.Standard,
+//   });
 
-export const adaptOfferToServer =
+export const adaptNewOfferToServer =
   (ticket: NewOffer): CreateOfferDto => ({
     title: ticket.title,
     date: getTime(),
@@ -33,13 +30,30 @@ export const adaptOfferToServer =
     location: ticket.location,
   });
 
-export const adaptCreateCommentToServer =
-  (comment: Comment): CreateCommentDto => ({
-    text: comment.comment,
-    rating: comment.rating,
-    offerId: comment.id,
-    userId: '',
-  });
+// export const adaptCreateCommentToServer =
+//   (comment: Comment): CreateCommentDto => ({
+//     text: comment.comment,
+//     rating: comment.rating,
+//     offerId: comment.id,
+//     userId: '',
+//   });
+
+export const adaptOfferToServer = (offer: Offer): UpdateOfferDto => ({
+  title: offer.title,
+  description: offer.description,
+  city: offer.city.name,
+  previewImage: offer.previewImage,
+  images: offer.images,
+  premium: offer.isPremium,
+  favorite: offer.isFavorite,
+  rating: offer.rating,
+  type: offer.type,
+  bedrooms: offer.bedrooms,
+  maxAdults: offer.maxAdults,
+  price: offer.price,
+  goods: offer.goods,
+  location: offer.location,
+});
 
 // export const adaptAvatarToServer =
 //   (file: string) => {
