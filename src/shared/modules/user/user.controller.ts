@@ -17,6 +17,8 @@ import {
   IAuthService,
   IOfferService,
   LoggedUserRdo,
+  OfferEntity,
+  OfferPreviewRdo,
   TCreateUserRequest,
   TFavoriteUserRequest,
   UploadUserAvatarRdo,
@@ -28,6 +30,7 @@ import { UserRdo } from '../index.js';
 import { TLoginUserRequest } from '../index.js';
 import { CreateUserDto } from '../index.js';
 import { LoginUserDto } from '../index.js';
+import { DocumentType } from '@typegoose/typegoose';
 
 @injectable()
 export class UserController extends BaseController {
@@ -70,10 +73,13 @@ export class UserController extends BaseController {
       path: '/login',
       method: HttpMethod.Get,
       handler: this.checkAuthenticate,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+      ],
     });
 
     this.addRoute({
-      path: '/favorites',
+      path: '/favorite',
       method: HttpMethod.Put,
       handler: this.updateFavorites,
       middlewares: [
@@ -133,16 +139,18 @@ export class UserController extends BaseController {
   }
 
   public async updateFavorites(
-    { body, tokenPayload: { email, id: userId } }: TFavoriteUserRequest,
+    { body: { offerId }, tokenPayload: { email, id: userId } }: TFavoriteUserRequest,
     res: Response,
   ): Promise<void> {
-    if (!(await this.offerService.exists(body.offerId))) {
+    if (!(await this.offerService.exists(offerId))) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `Offer with id ${body.offerId} not found.`,
+        `Offer with id ${offerId} not found.`,
         'UserController',
       );
     }
+
+    let foundedOffer: DocumentType<OfferEntity> | null = null;
 
     const foundedUser = await this.userService.findUnique({ email });
 
@@ -152,16 +160,19 @@ export class UserController extends BaseController {
 
     const favorites = new Set(foundedUser.favorites.map((offer) => offer.id));
 
-    if (body.isFavorite) {
-      favorites.add(body.offerId);
+    if (favorites.has(offerId)) {
+      favorites.delete(offerId);
     } else {
-      favorites.delete(body.offerId);
+      favorites.add(offerId);
     }
 
     await this.userService.updateById(userId, {
       favorites: [...favorites],
     });
 
-    this.noContent(res, null);
+    const foundedOffers = await this.offerService.find({ userId, offerId });
+    foundedOffer = foundedOffers[0] as DocumentType<OfferEntity>;
+
+    this.ok(res, fillDTO(OfferPreviewRdo, foundedOffer));
   }
 }

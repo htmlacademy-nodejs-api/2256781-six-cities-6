@@ -1,5 +1,6 @@
 import { Expose } from 'class-transformer';
 import { OfferType } from '../../../types/index.js';
+import { UserRdo } from '../../index.js';
 
 export class OfferPreviewRdo {
   @Expose()
@@ -33,5 +34,20 @@ export class OfferPreviewRdo {
   public price!: number;
 
   @Expose()
-  public commentCount!: number;
+  public bedrooms!: number;
+
+  @Expose()
+  public description!: string;
+
+  @Expose()
+  public goods!: string[];
+
+  @Expose()
+  public images!: string[];
+
+  @Expose()
+  public maxAdults!: number;
+
+  @Expose()
+  public author!: UserRdo;
 }
