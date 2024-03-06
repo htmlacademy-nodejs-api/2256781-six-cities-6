@@ -11,7 +11,7 @@ import {
 } from '../index.js';
 import { ILogger } from '../../libs/index.js';
 import { SortType } from '../../types/index.js';
-import { TSearchParameters } from './types/search-parameter.type.js';
+import { TSearchParameters } from '../index.js';
 
 @injectable()
 export class DefaultOfferService implements IOfferService {
@@ -33,6 +33,7 @@ export class DefaultOfferService implements IOfferService {
 
   public async find({
     userId,
+    offerId,
     limit,
     sort = { date: SortType.Down },
     isFavoriteOnly = false
@@ -42,6 +43,7 @@ export class DefaultOfferService implements IOfferService {
       .aggregate([
         ...getOfferAggregation(userId),
         isFavoriteOnly ? { $match: { favorite: true } } : { $match: {} },
+        offerId ? { $match: { id: offerId } } : { $match: {} },
         { $sort: sort },
         { $limit: count },
       ])

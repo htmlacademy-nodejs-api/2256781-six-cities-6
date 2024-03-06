@@ -72,7 +72,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public favorite!: boolean;
 
   @prop({
-    required: true,
+    required: false,
     type: () => Number,
   })
   public rating!: number;

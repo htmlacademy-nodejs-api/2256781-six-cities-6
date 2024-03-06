@@ -35,7 +35,7 @@ export const adaptPreviewOffersToClient =
         bedrooms: offer.bedrooms,
         description: offer.description,
         goods: offer.goods,
-        host: adaptUserToClient(offer.user),
+        host: adaptUserToClient(offer.author),
         images: offer.images,
         maxAdults: offer.maxAdults,
       }));
@@ -73,7 +73,7 @@ export const adaptPreviewOfferToClient = (offer: OfferPreviewRdo): Offer => ({
   bedrooms: offer.bedrooms,
   description: offer.description,
   goods: offer.goods,
-  host: adaptUserToClient(offer.user),
+  host: adaptUserToClient(offer.author),
   images: offer.images,
   maxAdults: offer.maxAdults,
 });

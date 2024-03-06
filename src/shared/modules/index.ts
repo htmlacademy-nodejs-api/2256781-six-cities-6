@@ -48,4 +48,5 @@ export * from './auth/errors/user-not-found.exception.js';
 export * from './auth/errors/user-password-incorrect.exception.js';
 export * from './auth/auth.exception-filter.js';
 export * from './auth/auth.container.js';
+export * from './offer/types/search-parameter.type.js';
 export * from './models.js';

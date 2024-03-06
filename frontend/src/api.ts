@@ -6,7 +6,7 @@ import { HttpCode } from './const';
 import { TValidationErrorField } from './types/error';
 
 const BACKEND_URL = 'http://localhost:4000';
-const REQUEST_TIMEOUT = 5000;
+const REQUEST_TIMEOUT = 50000;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -29,8 +29,6 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      toast.dismiss();
-
       const { response } = error;
 
       if (response) {
@@ -45,16 +43,17 @@ export const createAPI = (): AxiosInstance => {
                         (message: string) => toast.warn(message),
                       ),
                 )
-              : toast.warn(response.data.message);
+              : toast.warn(`Error: ${response.data.errorType}. Message: ${response.data.error}`);
             break;
           case HttpCode.NoAuth:
-            toast.warn(response.data.message);
+          case HttpCode.Conflict:
+            toast.warn(`Path: ${response.config.url}. Error: ${response.data.errorType}. Message: ${response.data.error}`);
             break;
           case HttpCode.NotFound:
-            toast.warn(response.data.message);
+            toast.warn(`Path: ${response.config.url}. Error: ${response.status}. Message: ${response.statusText}`);
             break;
-          case HttpCode.Conflict:
-            toast.warn(response.data.message);
+          default:
+            toast.warn('unknown error');
             break;
         }
       }

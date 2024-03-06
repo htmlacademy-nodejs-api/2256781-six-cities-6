@@ -54,4 +54,4 @@ export const groomURI = ({ uri, offerId = '', userId = '', cityName = '' }: TRep
   return uri.replace(patternUserId, userId)
     .replace(patternOfferId, offerId)
     .replace(patternCity, cityName);
-}
+};

@@ -103,14 +103,16 @@ export class OfferController extends BaseController {
   public async index(req: Request, res: Response): Promise<void> {
     const limit: number | undefined = isNaN(Number(req.query?.limit as string)) ? undefined : Number(req.query.limit);
 
-    const offers = await this.offerService.find({ limit });
+    const { id: userId } = req.tokenPayload;
+    const offers = await this.offerService.find({ limit, userId });
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
-  public async show({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
-    const { offerId } = params;
-    const offer = await this.offerService.findByOfferId(offerId);
-    this.ok(res, fillDTO(OfferRdo, offer));
+  public async show(req: Request, res: Response): Promise<void> {
+    const { offerId } = req.params;
+    const { id: userId } = req.tokenPayload;
+    const offers = await this.offerService.find({ userId, offerId });
+    this.ok(res, fillDTO(OfferRdo, offers[0]));
   }
 
   public async create(
@@ -118,21 +120,22 @@ export class OfferController extends BaseController {
     res: Response,
   ): Promise<void> {
     const result = await this.offerService.create({ ...body, userId: tokenPayload.id });
-    const offer = await this.offerService.findByOfferId(result.id);
-    this.created(res, fillDTO(OfferRdo, offer));
+    const offers = await this.offerService.find({ offerId: result.id });
+    this.created(res, fillDTO(OfferRdo, offers[0]));
   }
 
   public async delete({ params }: Request<ParamOfferId>, res: Response): Promise<void> {
     const { offerId } = params;
-    const offer = await this.offerService.deleteById(offerId);
-
+    const offers = await this.offerService.find({ offerId });
+    await this.offerService.deleteById(offerId);
     await this.commentService.deleteByOfferId(offerId);
-    this.noContent(res, offer);
+    this.noContent(res, offers[0]);
   }
 
   public async update({ body, params }: Request<ParamOfferId, unknown, UpdateOfferDto>, res: Response): Promise<void> {
     const updatedOffer = await this.offerService.updateById(params.offerId, body);
-    this.ok(res, fillDTO(OfferRdo, updatedOffer));
+    const offers = await this.offerService.find({ offerId: updatedOffer?.id });
+    this.ok(res, fillDTO(OfferRdo, !offers.length ? null : offers[0]));
   }
 
   public async getComments({ params }: Request<ParamOfferId>, res: Response): Promise<void> {

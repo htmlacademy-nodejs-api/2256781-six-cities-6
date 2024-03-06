@@ -43,11 +43,11 @@ export class OfferPreviewRdo {
   public goods!: string[];
 
   @Expose()
-  public user!: UserRdo;
-
-  @Expose()
   public images!: string[];
 
   @Expose()
   public maxAdults!: number;
+
+  @Expose()
+  public author!: UserRdo;
 }

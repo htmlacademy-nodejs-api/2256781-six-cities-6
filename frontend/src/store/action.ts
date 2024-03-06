@@ -5,7 +5,7 @@ import type { UserAuth, Offer, Comment, CommentAuth, FavoriteAuth, UserRegister,
 import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { Token } from '../utils';
 import { adaptPreviewOfferToClient, adaptOfferToClient, adaptPreviewOffersToClient, adaptCommentsToClient, adaptUserToClient, adaptCommentToClient } from '../adapters/adaptersToClient';
-import { adaptNewOfferToServer, adaptOfferToServer } from '../adapters/adaptersToServer';
+import { adaptCreateCommentToServer, adaptNewOfferToServer, adaptOfferToServer } from '../adapters/adaptersToServer';
 import UserRdo from '../dto/user/user.rdo';
 import OfferPreviewRdo from '../dto/offer/offer-preview.rdo';
 import OfferRdo from '../dto/offer/offer.rdo';
@@ -48,7 +48,7 @@ export const fetchFavoriteOffers = createAsyncThunk<Offer[], undefined, { extra:
   Action.FETCH_FAVORITE_OFFERS,
   async (_, { extra }) => {
     const { api } = extra;
-    const { data } = await api.get<OfferPreviewRdo[]>(ApiRoute.Favorite);
+    const { data } = await api.get<OfferPreviewRdo[]>(ApiRoute.Favorites);
 
     return adaptPreviewOffersToClient(data);
   });
@@ -155,9 +155,6 @@ export const loginUser = createAsyncThunk<UserAuth['email'], UserAuth, { extra: 
 export const logoutUser = createAsyncThunk<void, undefined, { extra: Extra }>(
   Action.LOGOUT_USER,
   async (_, { extra }) => {
-    const { api } = extra;
-    await api.delete(ApiRoute.Logout);
-
     Token.drop();
   });
 
@@ -183,9 +180,9 @@ export const registerUser = createAsyncThunk<void, UserRegister, { extra: Extra 
 
 export const postComment = createAsyncThunk<Comment, CommentAuth, { extra: Extra }>(
   Action.POST_COMMENT,
-  async ({ id, comment, rating }, { extra }) => {
+  async (comment, { extra }) => {
     const { api } = extra;
-    const { data } = await api.post<CommentRdo>(`${ApiRoute.Offers}/${id}${ApiRoute.Comments}`, { comment, rating });
+    const { data } = await api.post<CommentRdo>(ApiRoute.Comments, adaptCreateCommentToServer(comment));
 
     return adaptCommentToClient(data);
   });
@@ -198,11 +195,9 @@ export const postFavorite = createAsyncThunk<
   const { api, history } = extra;
 
   try {
-    const { data } = await api.post<Offer>(
-      `${ApiRoute.Favorite}/${id}`
-    );
+    const { data } = await api.put<OfferPreviewRdo>(ApiRoute.Favorite, { offerId: id });
 
-    return data;
+    return adaptPreviewOfferToClient(data);
   } catch (error) {
     const axiosError = error as AxiosError;
 
@@ -222,11 +217,9 @@ export const deleteFavorite = createAsyncThunk<
   const { api, history } = extra;
 
   try {
-    const { data } = await api.delete<Offer>(
-      `${ApiRoute.Favorite}/${id}`
-    );
+    const { data } = await api.put<OfferPreviewRdo>(ApiRoute.Favorite, { offerId: id });
 
-    return data;
+    return adaptPreviewOfferToClient(data);
   } catch (error) {
     const axiosError = error as AxiosError;
 

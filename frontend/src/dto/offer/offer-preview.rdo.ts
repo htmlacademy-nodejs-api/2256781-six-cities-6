@@ -28,9 +28,9 @@ export default class OfferPreviewRdo {
 
   public goods!: string[];
 
-  public user!: UserRdo;
-
   public images!: string[];
 
   public maxAdults!: number;
+
+  public author!: UserRdo;
 }
